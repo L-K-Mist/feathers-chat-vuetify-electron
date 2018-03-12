@@ -2,7 +2,6 @@
   <div id="app">
     <v-app dark>
       <v-navigation-drawer
-        fixed
         :mini-variant="miniVariant"
         :clipped="clipped"
         v-model="drawer"
@@ -86,25 +85,25 @@
 </template>
 
 <script>
-  export default {
-    name: 'p2d-controller',
-    data: () => ({
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
-        { icon: 'apps', title: 'Welcome', to: '/' },
-        { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    })
-  }
+export default {
+  name: "p2d-controller",
+  data: () => ({
+    clipped: false,
+    drawer: true,
+    fixed: false,
+    items: [
+      { icon: "apps", title: "Welcome", to: "/" },
+      { icon: "bubble_chart", title: "Inspire", to: "/inspire" }
+    ],
+    miniVariant: false,
+    right: true,
+    rightDrawer: false,
+    title: "Vuetify.js"
+  })
+};
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
-  /* Global CSS */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
+/* Global CSS */
 </style>
