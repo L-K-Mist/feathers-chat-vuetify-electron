@@ -46,6 +46,8 @@
         </v-btn>
         <v-toolbar-title v-text="title"></v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn to="controller">Dashboard</v-btn>
+        <v-btn @click.native.stop="getPort">Check Serial Ports</v-btn>
         <v-btn
           icon
           @click.native.stop="rightDrawer = !rightDrawer"
@@ -85,6 +87,7 @@
 </template>
 
 <script>
+var SerialPort = require("serialport-builds-electron");
 export default {
   name: "p2d-controller",
   data: () => ({
@@ -98,8 +101,19 @@ export default {
     miniVariant: false,
     right: true,
     rightDrawer: false,
-    title: "Vuetify.js"
-  })
+    title: "P2D"
+  }),
+  methods: {
+    getPort() {
+      SerialPort.list(function(err, ports) {
+        ports.forEach(function(port) {
+          console.log(port.comName);
+          console.log(port.pnpId);
+          console.log(port.manufacturer);
+        });
+      });
+    }
+  }
 };
 </script>
 

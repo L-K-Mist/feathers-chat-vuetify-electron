@@ -15,6 +15,11 @@ export default new Router({
       component: require('@/components/InspireView').default
     },
     {
+      path: '/controller',
+      name: 'controller',
+      component: require('@/components/dashboard').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

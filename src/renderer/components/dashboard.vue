@@ -1,0 +1,42 @@
+<template>
+    <v-container>
+        <v-layout row wrap>
+            <temp-slider name="Mike"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
+            <temp-slider v-model="heaterRightTarget" :targetTemp='heaterRightTarget'></temp-slider>
+            <temp-slider v-model="reactorTarget" :targetTemp='reactorTarget'></temp-slider>
+        </v-layout>
+    </v-container>
+</template>
+
+<script>
+import debounce from "@/helpers/debounce";
+import TempSlider from "@/components/ReUse/TempSlider";
+export default {
+  data() {
+    return {
+      heaterLeftTarget: 0,
+      heaterLeftTargetStable: 0,
+      heaterRightTarget: 0,
+      reactorTarget: 0
+    };
+  },
+  computed: {
+    heaterLeftNewValFromStore() {
+      return this.$store.getters.heaterLeft.targetTemp;
+    }
+  },
+  watch: {
+    heaterLeftTarget: debounce(function(newVal) {
+      this.heaterLeftTargetStable = newVal;
+      this.$store.dispatch("heaterLeftTarget", this.heaterLeftTargetStable); //this should be triggered by event
+    }, 1000),
+    heaterLeftNewValFromStore(newVal) {
+      this.heaterLeftTarget = newVal;
+    }
+  },
+  updated() {},
+  components: {
+    TempSlider
+  }
+};
+</script>
