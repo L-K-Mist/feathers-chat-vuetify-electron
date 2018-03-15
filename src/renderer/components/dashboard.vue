@@ -2,8 +2,8 @@
     <v-container>
         <v-layout row wrap>
             <temp-slider name="Mike"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
-            <temp-slider v-model="heaterRightTarget" :targetTemp='heaterRightTarget'></temp-slider>
-            <temp-slider v-model="reactorTarget" :targetTemp='reactorTarget'></temp-slider>
+            <!-- <temp-slider v-model="heaterRightTarget" :targetTemp='heaterRightTarget'></temp-slider>
+            <temp-slider v-model="reactorTarget" :targetTemp='reactorTarget'></temp-slider> -->
         </v-layout>
     </v-container>
 </template>
@@ -11,18 +11,28 @@
 <script>
 import debounce from "@/helpers/debounce";
 import TempSlider from "@/components/ReUse/TempSlider";
+var SerialPort = require("serialport-builds-electron");
 export default {
   data() {
     return {
       heaterLeftTarget: 0,
       heaterLeftTargetStable: 0,
-      heaterRightTarget: 0,
-      reactorTarget: 0
+      myPort: {}
+      // heaterRightTarget: 0,
+      // reactorTarget: 0
     };
+  },
+  methods: {
+    readSerialData(data) {
+      console.log(data);
+    }
   },
   computed: {
     heaterLeftNewValFromStore() {
       return this.$store.getters.heaterLeft.targetTemp;
+    },
+    activePortName() {
+      return this.$store.getters.activePortName;
     }
   },
   watch: {
@@ -33,10 +43,21 @@ export default {
     heaterLeftNewValFromStore(newVal) {
       this.heaterLeftTarget = newVal;
     }
+    // activePortName(newVal) {}
   },
-  updated() {},
+  mounted() {
+    this.myPort = new SerialPort(this.activePortName, 9600);
+    console.log(this.myPort);
+    this.myPort.open();
+    this.myPort.write("A");
+    this.myPort.on("data", () => {
+      console.log("data");
+    });
+    // this.$store.myPort.on("data", readSerialData);
+  },
   components: {
     TempSlider
   }
 };
 </script>
+  

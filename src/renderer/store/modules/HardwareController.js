@@ -1,25 +1,52 @@
 const state = {
-  main: 0
+  showConnectDialog: false,
+  heaterLeft: {
+    name: "Left Inlet",
+    targetTemp: 0,
+    actualTemp: 25
+  },
+  heaterRight: {
+    name: "Right Inlet",
+    targetTemp: 0,
+    actualTemp: 25
+  },
+  heaterReactor: {
+    name: "Reactor",
+    targetTemp: 0,
+    actualTemp: 25
+  }
+}
+const getters = {
+  showConnectDialog() {
+    return state.showConnectDialog
+    console.log(state.showConnectDialog)
+  },
+  heaterLeft: state => {
+    return state.heaterLeft;
+  },
 }
 
 const mutations = {
-  DECREMENT_MAIN_COUNTER (state) {
-    state.main--
+  showConnectDialog(state, payload) {
+    state.showConnectDialog = payload
   },
-  INCREMENT_MAIN_COUNTER (state) {
-    state.main++
-  }
+  // Explicitly sets the state of isAuthenticated to true or false
+  heaterLeftTarget: (state, payload) => {},
 }
 
 const actions = {
-  someAsyncTask ({ commit }) {
+  showConnectDialog({
+    commit
+  }, payload) {
     // do something async
-    commit('INCREMENT_MAIN_COUNTER')
-  }
+    commit('showConnectDialog', payload)
+  },
 }
 
 export default {
   state,
+  getters,
   mutations,
-  actions
+  actions,
+
 }

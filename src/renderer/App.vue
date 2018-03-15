@@ -47,7 +47,7 @@
         <v-toolbar-title v-text="title"></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn to="controller">Dashboard</v-btn>
-        <v-btn @click.native.stop="getPorts">Check Serial Ports</v-btn>
+        <v-btn @click.native.stop="getPorts" ><v-icon class="pr-2">import_export</v-icon>Connect Hardware</v-btn>
         <v-btn
           icon
           @click.native.stop="rightDrawer = !rightDrawer"
@@ -56,6 +56,7 @@
         </v-btn>
       </v-toolbar>
       <v-content>
+            <connect-dialog></connect-dialog>
         <v-container fluid fill-height>
           <v-slide-y-transition mode="out-in">
             <router-view></router-view>
@@ -87,7 +88,9 @@
 </template>
 
 <script>
+import ConnectDialog from "@/components/ConnectHardware/ConnectHardwareDialog";
 var SerialPort = require("serialport-builds-electron");
+
 export default {
   name: "p2d-controller",
   data: () => ({
@@ -102,20 +105,32 @@ export default {
     right: true,
     rightDrawer: false,
     title: "P2D",
-    allPorts: []
+    allPorts: [],
+    myPort: {}
   }),
+  computed: {
+    isSerialConnected() {
+      return this.$store.getters.hasPortname;
+    }
+  },
   methods: {
     getPorts() {
-      SerialPort.list(function(err, ports) {
-        ports.forEach(function(port) {
-          if (port.manufacturer !== undefined) {
-            console.log(port);
-          }
-          // console.log(port.pnpId);
-          // console.log(port.manufacturer);
-        });
-      });
+      this.$store.dispatch("getActivePortsPC");
+      this.$store.dispatch("showConnectDialog", true);
     }
+
+    // showConnectDialog() {
+    // }
+  },
+  watch: {
+    isSerialConnected(value) {
+      if ((value = true)) {
+        this.$router.replace({ name: "controller" });
+      }
+    }
+  },
+  components: {
+    ConnectDialog
   }
 };
 </script>
