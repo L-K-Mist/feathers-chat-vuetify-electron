@@ -11,6 +11,7 @@
 <script>
 import debounce from "@/helpers/debounce";
 import TempSlider from "@/components/ReUse/TempSlider";
+const { ipcRenderer } = require("electron");
 var SerialPort = require("serialport-builds-electron");
 export default {
   data() {
@@ -46,13 +47,20 @@ export default {
     // activePortName(newVal) {}
   },
   mounted() {
-    this.myPort = new SerialPort(this.activePortName, 9600);
-    console.log(this.myPort);
-    this.myPort.open();
-    this.myPort.write("A");
-    this.myPort.on("data", () => {
-      console.log("data");
+    setInterval(() => {
+      this.$electron.ipcRenderer.send("ping");
+    }, 1000);
+    this.$electron.ipcRenderer.on("pong", (event, data) => {
+      this.myDataVar = data;
+      console.log(data);
     });
+    //this.myPort = new SerialPort(this.activePortName, 9600);
+    //console.log(this.myPort);
+    // this.myPort.open();
+    // this.myPort.write("A");
+    // this.myPort.on("data", () => {
+    //   console.log("data");
+    // });
     // this.$store.myPort.on("data", readSerialData);
   },
   components: {

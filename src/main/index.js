@@ -3,7 +3,9 @@ import {
   BrowserWindow
 } from 'electron'
 //import ipc from 'ipc'
-//var ipc = require('ipc');
+const {
+  ipcMain
+} = require('electron');
 
 
 
@@ -51,7 +53,9 @@ app.on('activate', () => {
   }
 })
 
-
+ipcMain.on('ping', (event, data) => {
+  event.sender.send('pong', Math.random())
+})
 
 //ipc.on('close-main-window', function () {
 //   app.quit();
