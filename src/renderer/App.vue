@@ -47,7 +47,7 @@
         <v-toolbar-title v-text="title"></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn to="controller">Dashboard</v-btn>
-        <v-btn @click.native.stop="getPort">Check Serial Ports</v-btn>
+        <v-btn @click.native.stop="getPorts">Check Serial Ports</v-btn>
         <v-btn
           icon
           @click.native.stop="rightDrawer = !rightDrawer"
@@ -101,15 +101,18 @@ export default {
     miniVariant: false,
     right: true,
     rightDrawer: false,
-    title: "P2D"
+    title: "P2D",
+    allPorts: []
   }),
   methods: {
-    getPort() {
+    getPorts() {
       SerialPort.list(function(err, ports) {
         ports.forEach(function(port) {
-          console.log(port.comName);
-          console.log(port.pnpId);
-          console.log(port.manufacturer);
+          if (port.manufacturer !== undefined) {
+            console.log(port);
+          }
+          // console.log(port.pnpId);
+          // console.log(port.manufacturer);
         });
       });
     }
