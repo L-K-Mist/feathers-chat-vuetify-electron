@@ -13,6 +13,7 @@ var SerialPort = require("serialport-builds-electron");
 // var Readline = SerialPort.parsers.Readline; // make instance of Readline parser
 // var parser = new Readline(); // make a new parser to read ASCII lines
 var myPort = {}
+var handshakeComplete = false
 
 function initializePort(portname) {
   myPort = new SerialPort(portname, {
@@ -22,15 +23,17 @@ function initializePort(portname) {
     console.log("open")
   })
   myPort.on('data', (data) => {
-    console.log("got data ", data)
+    // console.log("got data ", data)
+    if (handshakeComplete == false && data[0] == 'A' && data[1] == '1') {
+      console.log('data0', data[0], 'data1', data[1])
+      myPort.write("A\n")
+      handshakeComplete = true
+      console.log("Handshake Complete, Protocol begun ")
+    }
   });
 }
 
-console.log(myPort)
-
 // Next put readline parser in
-
-
 
 /**
  * Set `__static` path to static files in production
