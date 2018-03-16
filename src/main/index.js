@@ -9,7 +9,24 @@ import {
 // } = require('electron');
 
 var SerialPort = require("serialport-builds-electron");
+// const myPort = {}
+// var Readline = SerialPort.parsers.Readline; // make instance of Readline parser
+// var parser = new Readline(); // make a new parser to read ASCII lines
 var myPort = {}
+
+function initializePort(portname) {
+  myPort = new SerialPort(portname, {
+    parser: SerialPort.parsers.readline('\n')
+  });
+
+}
+
+console.log(myPort)
+
+// Next put readline parser in
+
+
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -60,11 +77,10 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 })
 
 ipcMain.on('got-port-name', (event, arg) => {
-  myPort = new SerialPort(arg, 9600)
+  initializePort(arg)
   event.sender.send('got-port-confirmed', myPort)
 })
 
-myPort
 
 //ipc.on('close-main-window', function () {
 //   app.quit();
