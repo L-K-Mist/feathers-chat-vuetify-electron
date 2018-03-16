@@ -20,7 +20,7 @@ function initializePort(portname) {
     parser: SerialPort.parsers.readline('\n')
   });
   myPort.on('open', () => {
-    console.log("open")
+    console.log("Port is open")
   })
   myPort.on('data', (data) => {
     // console.log("got data ", data)

@@ -24,6 +24,9 @@ const getters = {
   heaterLeft: state => {
     return state.heaterLeft;
   },
+  heaterRight: state => {
+    return state.heaterRight;
+  },
 }
 
 const mutations = {
@@ -33,6 +36,9 @@ const mutations = {
   // Explicitly sets the state of isAuthenticated to true or false
   heaterLeftTarget: (state, payload) => {
     state.heaterLeft.targetTemp = payload
+  },
+  heaterRightTarget: (state, payload) => {
+    state.heaterRight.targetTemp = payload
   },
 }
 
@@ -47,7 +53,12 @@ const actions = {
     commit
   }, payload) {
     commit('heaterLeftTarget', payload)
-  }
+  },
+  heaterRightTarget({
+    commit
+  }, payload) {
+    commit('heaterRightTarget', payload)
+  },
 
 }
 
