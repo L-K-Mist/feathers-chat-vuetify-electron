@@ -21,7 +21,9 @@ function initializePort(portname) {
   myPort.on('open', () => {
     console.log("open")
   })
-
+  myPort.on('data', () => {
+    console.log("got data")
+  });
 }
 
 console.log(myPort)
