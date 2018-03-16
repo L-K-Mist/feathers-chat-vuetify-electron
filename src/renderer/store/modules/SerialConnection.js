@@ -1,11 +1,5 @@
+// Using SerialPort here just for seeing available ports, not to create the SerialPort object
 var SerialPort = require("serialport-builds-electron");
-
-// var portName = store.state.activePortName
-// var myPort = new SerialPort(portName, 9600);
-
-// myPort.on('open', () => {
-//     console.log('port is open!!')
-// })
 
 const state = {
     activePorts: [],

@@ -43,16 +43,6 @@ export default {
       this.$store.dispatch("connectSerial", port);
       this.$router.replace({ name: "controller" });
     }
-    // userRegister() {
-    //   this.dialog = false;
-    //   this.$store.dispatch("userRegister", true);
-    //   this.$router.replace({ name: "AppAuthentication" });
-    // },
-    // userLogin() {
-    //   this.dialog = false;
-    //   this.$store.dispatch("userLogin", true);
-    //   this.$router.replace({ name: "AppAuthentication" });
-    // }
   }
 };
 </script>

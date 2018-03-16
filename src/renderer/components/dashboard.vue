@@ -12,7 +12,7 @@
 import debounce from "@/helpers/debounce";
 import TempSlider from "@/components/ReUse/TempSlider";
 const { ipcRenderer } = require("electron");
-var SerialPort = require("serialport-builds-electron");
+
 export default {
   data() {
     return {
@@ -54,14 +54,6 @@ export default {
       this.myDataVar = data;
       console.log(data);
     });
-    //this.myPort = new SerialPort(this.activePortName, 9600);
-    //console.log(this.myPort);
-    // this.myPort.open();
-    // this.myPort.write("A");
-    // this.myPort.on("data", () => {
-    //   console.log("data");
-    // });
-    // this.$store.myPort.on("data", readSerialData);
   },
   components: {
     TempSlider

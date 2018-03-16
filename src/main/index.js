@@ -7,8 +7,8 @@ const {
   ipcMain
 } = require('electron');
 
-
-
+var SerialPort = require("serialport-builds-electron");
+var myPort = {}
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -53,7 +53,9 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('ping', (event, data) => {
+ipcMain.on('address', (event, data) => {
+  myPort = new SerialPort(event.data, 9600);
+  console.log(myPort);
   event.sender.send('pong', Math.random())
 })
 
