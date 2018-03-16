@@ -13,6 +13,10 @@ ipcRenderer.send('asynchronous-message', 'ping')
 ipcRenderer.on('asynchronous-reply', (event, arg) => {
   console.log(arg) // prints "pong"
 })
+ipcRenderer.on('got-port-confirmed', (event, arg) => {
+  console.log("connection confirmed ", arg)
+  store.commit('showConnectDialog', false)
+})
 
 Vue.use(Vuex)
 

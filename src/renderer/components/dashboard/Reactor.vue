@@ -16,6 +16,11 @@
 <script>
 import TempSlider from "@/components/ReUse/TempSlider";
 export default {
+  data() {
+    return {
+      heaterLeftTarget: 30
+    };
+  },
   components: { TempSlider }
 };
 </script>

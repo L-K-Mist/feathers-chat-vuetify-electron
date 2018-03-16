@@ -5,9 +5,7 @@ import {
 // Using SerialPort here just for seeing available ports, not to create the SerialPort object
 var SerialPort = require("serialport-builds-electron");
 
-ipcRenderer.on('got-port-confirmed', (event, arg) => {
-    console.log(arg)
-})
+
 
 const state = {
     activePorts: [],
