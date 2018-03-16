@@ -5,7 +5,7 @@
                     <h5>{{ name }}</h5>
                         <v-layout row wrap>
                         <v-flex xs12 sm10>
-                            <v-slider :prepend-icon="icon" :value="target" @input="$emit('input', $event)" thumb-label step="10" ticks></v-slider>
+                            <v-slider :max="max" :value="target" @input="$emit('input', $event)" thumb-label step="10" ticks></v-slider>
                         </v-flex>
                         <v-flex xs3 sm2>
                             <v-text-field :value="target" @input="$emit('input', $event)" type="number"></v-text-field>
@@ -22,6 +22,10 @@ export default {
     targetTemp: {
       default: 40,
       type: Number
+    },
+    disabled: {
+      default: false,
+      type: Boolean
     },
     name: {
       default: "MaxiMillion",
