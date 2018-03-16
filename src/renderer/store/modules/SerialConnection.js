@@ -1,5 +1,13 @@
+import {
+    ipcRenderer
+} from "electron";
+
 // Using SerialPort here just for seeing available ports, not to create the SerialPort object
 var SerialPort = require("serialport-builds-electron");
+
+ipcRenderer.on('got-port-confirmed', (event, arg) => {
+    console.log(arg)
+})
 
 const state = {
     activePorts: [],
@@ -52,6 +60,7 @@ const actions = {
         // portname = payload
         commit('setActivePortName', payload)
         commit('hasPortName', true)
+        ipcRenderer.send('got-port-name', payload)
     }
 }
 

@@ -8,7 +8,6 @@ const {
   ipcRenderer
 } = require('electron')
 
-console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "ping" to main console. If I remove the console log it looses the second pong
 ipcRenderer.send('asynchronous-message', 'ping')
 
 ipcRenderer.on('asynchronous-reply', (event, arg) => {

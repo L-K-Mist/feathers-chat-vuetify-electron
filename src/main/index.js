@@ -59,10 +59,12 @@ ipcMain.on('asynchronous-message', (event, arg) => {
   event.sender.send('asynchronous-reply', 'pong')
 })
 
-ipcMain.on('synchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.returnValue = 'pong'
+ipcMain.on('got-port-name', (event, arg) => {
+  myPort = new SerialPort(arg, 9600)
+  event.sender.send('got-port-confirmed', myPort)
 })
+
+myPort
 
 //ipc.on('close-main-window', function () {
 //   app.quit();
