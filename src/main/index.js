@@ -18,6 +18,9 @@ function initializePort(portname) {
   myPort = new SerialPort(portname, {
     parser: SerialPort.parsers.readline('\n')
   });
+  myPort.on('open', () => {
+    console.log("open")
+  })
 
 }
 
