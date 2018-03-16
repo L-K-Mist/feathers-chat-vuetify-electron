@@ -54,10 +54,14 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('address', (event, data) => {
-  myPort = new SerialPort(data, 9600);
-  console.log(myPort);
-  event.sender.send('pong', Math.random())
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.returnValue = 'pong'
 })
 
 //ipc.on('close-main-window', function () {
