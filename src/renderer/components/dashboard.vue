@@ -1,7 +1,8 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <temp-slider name="Mike"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
+          <waste-inlets></waste-inlets>
+          <main-reactor></main-reactor>
             <!-- <temp-slider v-model="heaterRightTarget" :targetTemp='heaterRightTarget'></temp-slider>
             <temp-slider v-model="reactorTarget" :targetTemp='reactorTarget'></temp-slider> -->
         </v-layout>
@@ -9,38 +10,15 @@
 </template>
 
 <script>
-import debounce from "@/helpers/debounce";
-import TempSlider from "@/components/ReUse/TempSlider";
+import MainReactor from "@/components/dashboard/Reactor";
+import WasteInlets from "@/components/dashboard/WasteInlets";
 const { ipcRenderer } = require("electron");
-
 export default {
   data() {
-    return {
-      heaterLeftTarget: 0,
-      heaterLeftTargetStable: 0,
-      myPort: {}
-      // heaterRightTarget: 0,
-      // reactorTarget: 0
-    };
+    return {};
   },
   methods: {},
-  computed: {
-    heaterLeftNewValFromStore() {
-      return this.$store.getters.heaterLeft.targetTemp;
-    },
-    activePortName() {
-      return this.$store.getters.activePortName;
-    }
-  },
-  watch: {
-    heaterLeftTarget: debounce(function(newVal) {
-      this.heaterLeftTargetStable = newVal;
-      this.$store.dispatch("heaterLeftTarget", this.heaterLeftTargetStable); //this should be triggered by event
-    }, 1000),
-    heaterLeftNewValFromStore(newVal) {
-      this.heaterLeftTarget = newVal;
-    }
-  },
+
   mounted() {
     setInterval(() => {
       this.$electron.ipcRenderer.send("ping");
@@ -51,8 +29,14 @@ export default {
     });
   },
   components: {
-    TempSlider
+    MainReactor,
+    WasteInlets
   }
 };
 </script>
+
+<style>
+
+</style>
+
   
