@@ -31,7 +31,9 @@ const mutations = {
     state.showConnectDialog = payload
   },
   // Explicitly sets the state of isAuthenticated to true or false
-  heaterLeftTarget: (state, payload) => {},
+  heaterLeftTarget: (state, payload) => {
+    state.heaterLeft.targetTemp = payload
+  },
 }
 
 const actions = {
@@ -41,6 +43,12 @@ const actions = {
     // do something async
     commit('showConnectDialog', payload)
   },
+  heaterLeftTarget({
+    commit
+  }, payload) {
+    commit('heaterLeftTarget', payload)
+  }
+
 }
 
 export default {

@@ -4,7 +4,7 @@
             <v-card-title ><strong> Waste Inlets </strong></v-card-title>
             <v-layout row wrap>
                 <temp-slider name="Left Target"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
-                <temp-slider name="Right Target"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
+                <temp-slider name="Right Target"  v-model="heaterLeftTarget" :targetTemp='heaterRightTarget'></temp-slider>
                 <temp-slider name="Left Actual"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
                 <temp-slider name="Right Actual"  v-model="heaterLeftTarget" :targetTemp='heaterLeftTarget'></temp-slider>
             </v-layout>
@@ -22,9 +22,10 @@ export default {
     return {
       heaterLeftTarget: 0,
       heaterLeftTargetStable: 0,
-      myPort: {}
-      // heaterRightTarget: 0,
-      // reactorTarget: 0
+
+      heaterRightTarget: 0,
+      reactorTarget: 0,
+      disabled: true
     };
   },
   computed: {
@@ -36,10 +37,9 @@ export default {
     }
   },
   watch: {
-    heaterLeftTarget: debounce(function(newVal) {
-      this.heaterLeftTargetStable = newVal;
-      this.$store.dispatch("heaterLeftTarget", this.heaterLeftTargetStable); //this should be triggered by event
-    }, 1000),
+    heaterLeftTarget: function(newVal) {
+      this.$store.dispatch("heaterLeftTarget", this.heaterLeftTarget); //this should be triggered by event
+    },
     heaterLeftNewValFromStore(newVal) {
       this.heaterLeftTarget = newVal;
     }
