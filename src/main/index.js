@@ -1,11 +1,12 @@
 import {
   app,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain
 } from 'electron'
 //import ipc from 'ipc'
-const {
-  ipcMain
-} = require('electron');
+// const {
+//   ipcMain
+// } = require('electron');
 
 var SerialPort = require("serialport-builds-electron");
 var myPort = {}
@@ -54,7 +55,7 @@ app.on('activate', () => {
 })
 
 ipcMain.on('address', (event, data) => {
-  myPort = new SerialPort(event.data, 9600);
+  myPort = new SerialPort(data, 9600);
   console.log(myPort);
   event.sender.send('pong', Math.random())
 })

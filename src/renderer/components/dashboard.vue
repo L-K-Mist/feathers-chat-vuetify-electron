@@ -23,11 +23,7 @@ export default {
       // reactorTarget: 0
     };
   },
-  methods: {
-    readSerialData(data) {
-      console.log(data);
-    }
-  },
+  methods: {},
   computed: {
     heaterLeftNewValFromStore() {
       return this.$store.getters.heaterLeft.targetTemp;
@@ -44,7 +40,6 @@ export default {
     heaterLeftNewValFromStore(newVal) {
       this.heaterLeftTarget = newVal;
     }
-    // activePortName(newVal) {}
   },
   mounted() {
     setInterval(() => {

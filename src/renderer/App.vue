@@ -89,7 +89,6 @@
 
 <script>
 import ConnectDialog from "@/components/ConnectHardware/ConnectHardwareDialog";
-var SerialPort = require("serialport-builds-electron");
 
 export default {
   name: "p2d-controller",
