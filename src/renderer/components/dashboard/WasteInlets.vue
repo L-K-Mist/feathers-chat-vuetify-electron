@@ -3,8 +3,14 @@
         <v-card  color="blue-grey darken-2">
             <v-card-title ><strong> Waste Inlets </strong></v-card-title>
             <v-layout row wrap>
-                <temp-slider name="Left Target"  v-model="heaterLeftTarget" :value='heaterLeftTarget' :progressVal="heaterLeftActual"></temp-slider>
-                <temp-slider name="Right Target"  v-model="heaterRightTarget" :value='heaterRightTarget' :progressVal="heaterRightActual"></temp-slider>
+                <temp-slider name="Left Target"  
+                  v-model="heaterLeftTarget" 
+                  :value='heaterLeftTarget' 
+                  :progressVal="heaterLeftActual"></temp-slider>
+                <temp-slider name="Right Target"  
+                  v-model="heaterRightTarget" 
+                  :value='heaterRightTarget' 
+                  :progressVal="heaterRightActual"></temp-slider>
                 <!-- <temp-slider :disabled="disabled" name="Right Actual"  v-model="heaterRightStore.actualTemp" :value='heaterRightStore.actualTemp'></temp-slider> -->
             </v-layout>
         </v-card>
@@ -19,20 +25,20 @@ import debounce from "@/helpers/debounce";
 export default {
   data() {
     return {
-      heaterLeftTarget: 0,
-      heaterLeftActual: 20,
-      heaterRightActual: 20,
-      heaterRightTarget: 0,
+      heaterLeftTarget: 150,
+      //heaterLeftActual: 20,
+      //heaterRightActual: 20,
+      heaterRightTarget: 150,
       reactorTarget: 0,
       disabled: true
     };
   },
   computed: {
-    heaterLeftStore() {
-      return this.$store.getters.heaterLeft;
+    heaterLeftActual() {
+      return this.$store.getters.heaterLeft.actualTemp;
     },
-    heaterRightStore() {
-      return this.$store.getters.heaterRight;
+    heaterRightActual() {
+      return this.$store.getters.heaterRight.actualTemp;
     },
     heaterLeftNewValFromStore() {
       return this.$store.getters.heaterLeft.targetTemp;

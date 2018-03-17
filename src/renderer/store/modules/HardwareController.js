@@ -3,12 +3,12 @@ const state = {
   heaterLeft: {
     name: "Left Inlet",
     targetTemp: 0,
-    actualTemp: 25
+    actualTemp: 10
   },
   heaterRight: {
     name: "Right Inlet",
     targetTemp: 0,
-    actualTemp: 25
+    actualTemp: 10
   },
   heaterReactor: {
     name: "Reactor",
@@ -40,6 +40,12 @@ const mutations = {
   heaterRightTarget: (state, payload) => {
     state.heaterRight.targetTemp = payload
   },
+  heaterLeftActual: (state, payload) => {
+    state.heaterLeft.actualTemp = payload
+  },
+  heaterRightActual: (state, payload) => {
+    state.heaterRight.actualTemp = payload
+  },
 }
 
 const actions = {
@@ -58,6 +64,16 @@ const actions = {
     commit
   }, payload) {
     commit('heaterRightTarget', payload)
+  },
+  heaterLeftActual({
+    commit
+  }, payload) {
+    commit('heaterLeftActual', payload)
+  },
+  heaterRightActual({
+    commit
+  }, payload) {
+    commit('heaterRightActual', payload)
   },
 
 }
