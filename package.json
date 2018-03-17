@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "comma-separated-values": "^3.6.4",
     "serialport-builds-electron": "^4.0.7",
     "vue": "^2.4.2",
     "vue-electron": "^1.0.6",

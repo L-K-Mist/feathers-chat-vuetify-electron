@@ -7,15 +7,24 @@ import {
 // const {
 //   ipcMain
 // } = require('electron');
-
+var CSV = require("comma-separated-values")
 var SerialPort = require("serialport-builds-electron");
 // const myPort = {}
 // var Readline = SerialPort.parsers.Readline; // make instance of Readline parser
 // var parser = new Readline(); // make a new parser to read ASCII lines
 var myPort = {}
-var handshakeComplete = false
 
 function initializePort(portname) {
+  var handshakeComplete = false
+
+  if (handshakeComplete == true) {
+    setInterval(function () {
+      //console.log("5 second interval");
+      myPort.write("T")
+    }, 3000);
+    console.log("interval for Tpinging set")
+  }
+
   myPort = new SerialPort(portname, {
     parser: SerialPort.parsers.readline('\n')
   });
@@ -24,14 +33,38 @@ function initializePort(portname) {
   })
   myPort.on('data', (data) => {
     // console.log("got data ", data)
-    if (handshakeComplete == false && data[0] == 'A' && data[1] == '1') {
-      console.log('data0', data[0], 'data1', data[1])
+    if (data[0] == 'A') {
       myPort.write("A\n")
+      console.log('data0', data[0], 'data1', data[1])
       handshakeComplete = true
       console.log("Handshake Complete, Protocol begun ")
+    } else if (handshakeComplete == true) {
+      //myPort.write("T") // writing T here once to set off the chain
+      // console.log(data);
+      // Set Interval to Ping the Arduino for Temps
+      if (data[0] == "T") {
+        console.log('got an array of Temps :)')
+        //assignTemps(data)
+        var tempsFromArduino = CSV.parse(data, {
+          cast: ['String', 'Number', 'Number', 'Number', 'Number', 'Number']
+        });
+        tempsFromArduino.shift();
+        console.log(tempsFromArduino[0])
+
+      }
+
     }
   });
 }
+
+
+
+
+// for (var i of arrayName) {
+//   arrayName[i] = parseInt(arrayName[i], 10)
+// }
+
+
 
 // Next put readline parser in
 
@@ -88,6 +121,12 @@ ipcMain.on('got-port-name', (event, arg) => {
   initializePort(arg)
   event.sender.send('got-port-confirmed', myPort)
 })
+
+ipcMain.on('give-me-temps', (event, arg) => {
+
+})
+
+
 
 
 //ipc.on('close-main-window', function () {
