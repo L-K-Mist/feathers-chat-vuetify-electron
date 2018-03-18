@@ -1,6 +1,6 @@
 <template>
-  <v-flex xs12>
-      <v-card color="blue-grey darken-2" class="mt-1">
+  <v-container grid-list-md>
+      <v-card class="text-xs-center" color="blue-grey darken-2" >
           <v-card-title><h3>Reactor</h3></v-card-title>
           <v-layout row wrap>
             <v-spacer></v-spacer>
@@ -12,7 +12,7 @@
                 :mainCardWidth="12"></temp-slider>
                 <v-spacer></v-spacer>
             </v-layout> 
-            <v-layout row>
+            <v-layout row wrap>
                 <v-spacer></v-spacer>
                 <flasher-slider name="Furnace Intensity"  
                 v-model="blowerSpeed" 
@@ -20,7 +20,7 @@
                 <v-spacer></v-spacer>
             </v-layout>
       </v-card>
-  </v-flex>
+  </v-container>
 </template>
 <script>
 import TempSlider from "@/components/ReUse/TempSlider";
