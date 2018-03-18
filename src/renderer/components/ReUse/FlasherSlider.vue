@@ -12,9 +12,7 @@
                               thumb-label step="10" 
                               prepend-icon="radio_button_checked" 
                               ticks></v-slider>
-                                <v-layout row>
-                                
-                                </v-layout>                               
+                           
                         </v-flex>
                         <v-flex xs3 sm2>
                             <v-text-field :value="sliderVal" @input="$emit('input', $event)" type="number"></v-text-field>

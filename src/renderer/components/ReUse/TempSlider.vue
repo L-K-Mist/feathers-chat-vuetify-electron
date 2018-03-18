@@ -1,5 +1,5 @@
  <template>
-        <v-flex xs6>
+        <v-flex v-bind="{[`xs${mainCardWidth}`]:true}">
             <v-card class="ma-2">
                 <v-card-text>
                         <v-layout row wrap>
@@ -11,9 +11,11 @@
                               @input="$emit('input', $event)" 
                               thumb-label step="10" 
                               prepend-icon="radio_button_checked" 
-                              ticks></v-slider>
+                              ticks
+                              opacity="0.2"
+                              hint="Setting Target Temperature in Celcius"></v-slider>
                                 <v-layout row>
-                                <div name="pre-spacer" style="width: 75px; height: 40px"><v-icon>whatshot</v-icon></div>
+                                <div name="pre-spacer" class="text-xs-left" style="width: 75px; height: 40px"><v-icon>whatshot</v-icon></div>
                                 <v-progress-linear
                                     :buffer-value="bufferVal"
                                     :value="progressVal*100/max"
@@ -27,8 +29,12 @@
                                 </v-layout>                               
                         </v-flex>
                         <v-flex xs3 sm2>
-                            <v-text-field  :value="sliderVal" @input="$emit('input', $event)" type="number"></v-text-field>
-                            <v-text-field disabled :value="progressVal" @input="$emit('input', $event)" type="number"></v-text-field>
+                            <v-text-field  :value="sliderVal" @input="$emit('input', $event)" type="number"
+                            hint="Target Temp"
+                            persistent-hint></v-text-field>
+                            <v-text-field disabled :value="progressVal" @input="$emit('input', $event)" type="number"
+                            hint="Actual Temp"
+                            persistent-hint></v-text-field>
                         </v-flex>
                     </v-layout>
                 </v-card-text>
@@ -57,6 +63,10 @@ export default {
     },
     max: {
       default: 200,
+      type: Number
+    },
+    mainCardWidth: {
+      default: 6,
       type: Number
     }
   },
