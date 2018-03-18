@@ -1,6 +1,6 @@
  <template>
         <v-flex xs6>
-            <v-card class="ma-2">
+            <v-card class="ma-1">
                 <v-card-text>
                         <v-layout row wrap>
                         <v-flex xs12 sm10>
@@ -13,22 +13,11 @@
                               prepend-icon="radio_button_checked" 
                               ticks></v-slider>
                                 <v-layout row>
-                                <div name="pre-spacer" style="width: 75px; height: 40px"><v-icon>whatshot</v-icon></div>
-                                <v-progress-linear
-                                    :buffer-value="bufferVal"
-                                    :value="progressVal*100/max"
-                                    buffer
-                                    color="red lighten-1"
-                                    background-color="red lighten-3"
-                                    background-opacity="0.7"
-                                    style="margin-right: 15px; margin-top:8px"
-                                    >
-                                </v-progress-linear>
+                                
                                 </v-layout>                               
                         </v-flex>
                         <v-flex xs3 sm2>
-                            <v-text-field  :value="sliderVal" @input="$emit('input', $event)" type="number"></v-text-field>
-                            <v-text-field disabled :value="progressVal" @input="$emit('input', $event)" type="number"></v-text-field>
+                            <v-text-field :value="sliderVal" @input="$emit('input', $event)" type="number"></v-text-field>
                         </v-flex>
                     </v-layout>
                 </v-card-text>
@@ -76,9 +65,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-/* .slider__track__container {
-} */
-</style>
-
- 

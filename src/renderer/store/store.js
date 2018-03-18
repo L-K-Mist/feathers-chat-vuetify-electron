@@ -15,7 +15,20 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
 })
 ipcRenderer.on('got-port-confirmed', (event, arg) => {
   console.log("connection confirmed ", arg)
-  store.commit('showConnectDialog', false)
+  store.dispatch('showConnectDialog', false)
+})
+
+ipcRenderer.on('handshakeComplete', (event, arg) => {
+  store.dispatch("handshakeComplete", true)
+  setInterval(function () {
+    //console.log("5 second interval");
+    ipcRenderer.send('give-me-temps')
+  }, 3000);
+
+})
+
+ipcRenderer.on('tempsArrayReady', (event, arg) => {
+  store.dispatch('populateTemps', arg)
 })
 
 Vue.use(Vuex)

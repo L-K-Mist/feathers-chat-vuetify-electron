@@ -17,13 +17,13 @@ var myPort = {}
 function initializePort(portname) {
   var handshakeComplete = false
 
-  if (handshakeComplete == true) {
-    setInterval(function () {
-      //console.log("5 second interval");
-      myPort.write("T")
-    }, 3000);
-    console.log("interval for Tpinging set")
-  }
+  // if (handshakeComplete == true) {
+  //   setInterval(function () {
+  //     //console.log("5 second interval");
+  //     myPort.write("T")
+  //   }, 3000);
+  //   console.log("interval for Tpinging set")
+  // }
 
   myPort = new SerialPort(portname, {
     parser: SerialPort.parsers.readline('\n')
@@ -37,36 +37,21 @@ function initializePort(portname) {
       myPort.write("A\n")
       console.log('data0', data[0], 'data1', data[1])
       handshakeComplete = true
+      mainWindow.webContents.send('handshakeComplete', true)
       console.log("Handshake Complete, Protocol begun ")
     } else if (handshakeComplete == true) {
-      //myPort.write("T") // writing T here once to set off the chain
-      // console.log(data);
-      // Set Interval to Ping the Arduino for Temps
       if (data[0] == "T") {
-        console.log('got an array of Temps :)')
-        //assignTemps(data)
-        var tempsFromArduino = CSV.parse(data, {
+
+        var stringToCSV = CSV.parse(data, {
           cast: ['String', 'Number', 'Number', 'Number', 'Number', 'Number']
         });
-        tempsFromArduino.shift();
-        console.log(tempsFromArduino[0])
-
+        stringToCSV[0].shift();
+        let tempsFromArduino = stringToCSV[0]
+        mainWindow.webContents.send("tempsArrayReady", tempsFromArduino)
       }
-
     }
   });
 }
-
-
-
-
-// for (var i of arrayName) {
-//   arrayName[i] = parseInt(arrayName[i], 10)
-// }
-
-
-
-// Next put readline parser in
 
 /**
  * Set `__static` path to static files in production
@@ -86,9 +71,11 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    height: 700,
+    darkTheme: true,
+    //fullscreen: true
   })
 
   mainWindow.loadURL(winURL)
@@ -112,26 +99,17 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.sender.send('asynchronous-reply', 'pong')
-})
 
 ipcMain.on('got-port-name', (event, arg) => {
   initializePort(arg)
   event.sender.send('got-port-confirmed', myPort)
 })
 
-ipcMain.on('give-me-temps', (event, arg) => {
-
+ipcMain.on('give-me-temps', (event) => {
+  myPort.write("T")
 })
 
 
-
-
-//ipc.on('close-main-window', function () {
-//   app.quit();
-// })
 /**
  * Auto Updater
  *

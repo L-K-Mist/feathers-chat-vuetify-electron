@@ -6,8 +6,8 @@ import {
 var SerialPort = require("serialport-builds-electron");
 
 
-
 const state = {
+    handshakeComplete: false,
     activePorts: [],
     arduinoPorts: [],
     activePortName: "",
@@ -23,7 +23,11 @@ const getters = {
     },
     activePortName(state) {
         return state.activePortName
-    }
+    },
+    handshakeComplete(state) {
+        return state.handshakeComplete
+    },
+
 }
 const mutations = {
     setActivePortsApp(state, payload) {
@@ -40,7 +44,10 @@ const mutations = {
     hasPortName(state, payload) {
         state.hasPortName = payload
         console.log("hasPortName is ", state.hasPortName)
-    }
+    },
+    handshakeComplete(state, payload) {
+        state.handshakeComplete = payload
+    },
 }
 
 const actions = {
@@ -59,7 +66,12 @@ const actions = {
         commit('setActivePortName', payload)
         commit('hasPortName', true)
         ipcRenderer.send('got-port-name', payload)
-    }
+    },
+    handshakeComplete({
+        commit
+    }, payload) {
+        commit('handshakeComplete', payload)
+    },
 }
 
 export default {

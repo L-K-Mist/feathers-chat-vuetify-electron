@@ -11,7 +11,30 @@
                   v-model="heaterRightTarget" 
                   :value='heaterRightTarget' 
                   :progressVal="heaterRightActual"></temp-slider>
-                <!-- <temp-slider :disabled="disabled" name="Right Actual"  v-model="heaterRightStore.actualTemp" :value='heaterRightStore.actualTemp'></temp-slider> -->
+              
+              <v-layout row wrap>
+                <v-spacer></v-spacer>
+                <v-flex xs6 >
+                  <v-card class="ma-2">
+                    <v-card-text>
+                      <v-layout row wrap>
+                        <v-flex>
+                          <h5>Left Cooling Fan</h5>
+                          <v-switch class="mt-3"></v-switch>
+
+                        </v-flex>
+                        <v-flex>
+                          <h5>Right Cooling Fan</h5>
+                          <v-switch class="mt-3"></v-switch>
+
+                        </v-flex>
+
+                      </v-layout>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-spacer></v-spacer>
+              </v-layout>                <!-- <temp-slider :disabled="disabled" name="Right Actual"  v-model="heaterRightStore.actualTemp" :value='heaterRightStore.actualTemp'></temp-slider> -->
             </v-layout>
         </v-card>
         <v-card color="blue-grey darken-2"></v-card>
@@ -48,9 +71,9 @@ export default {
     }
   },
   watch: {
-    heaterLeftStore(newVal) {
-      this.heaterLeftActual = newVal.actualTemp;
-    },
+    // heaterLeftStore(newVal) {
+    //   this.heaterLeftActual = newVal.actualTemp;
+    // },
     heaterLeftTarget: function(newVal) {
       this.$store.dispatch("heaterLeftTarget", this.heaterLeftTarget); //this should be triggered by event
     },
