@@ -32,6 +32,9 @@ const getters = {
   heaterReactor: state => {
     return state.heaterReactor
   },
+  state() {
+    return state
+  }
 }
 
 const mutations = {

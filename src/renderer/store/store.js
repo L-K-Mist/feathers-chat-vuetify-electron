@@ -3,6 +3,25 @@ import Vuex from 'vuex'
 
 import HardwareController from './modules/HardwareController'
 import SerialConnection from './modules/SerialConnection'
+import db from '@/api/pouchDB'
+
+var doc = {
+  "_id": "mittens2",
+  "name": "Mittens",
+  "occupation": "kitten",
+  "age": 3,
+  "hobbies": [
+    "playing with balls of yarn",
+    "chasing laser pointers",
+    "lookin' hella cute"
+  ]
+};
+
+db.put(doc);
+db.get('mittens2').then(function (doc) {
+  console.log(doc);
+});
+
 // import ipcRenderer from 'electron'
 const {
   ipcRenderer
@@ -20,6 +39,7 @@ ipcRenderer.on('got-port-confirmed', (event, arg) => {
 
 ipcRenderer.on('handshakeComplete', (event, arg) => {
   store.dispatch("handshakeComplete", true)
+  console.log(store.state.HardwareController)
   setInterval(function () {
     //console.log("5 second interval");
     ipcRenderer.send('give-me-temps')
