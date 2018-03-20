@@ -1,3 +1,5 @@
+import db from '@/api/pouchDB'
+
 const state = {
   showConnectDialog: false,
   heaterLeft: {
@@ -21,7 +23,6 @@ const state = {
 const getters = {
   showConnectDialog() {
     return state.showConnectDialog
-    console.log(state.showConnectDialog)
   },
   heaterLeft: state => {
     return state.heaterLeft;
@@ -32,9 +33,14 @@ const getters = {
   heaterReactor: state => {
     return state.heaterReactor
   },
-  state() {
-    return state
-  }
+  actualTemps() {
+    return {
+      leftInlet: state.heaterLeft.actualTemp,
+      rightInlet: state.heaterRight.actualTemp,
+      reactor: state.heaterReactor.actualTemp
+    }
+  },
+
 }
 
 const mutations = {
@@ -59,8 +65,10 @@ const mutations = {
   },
   heaterReactorActual: (state, payload) => {
     state.heaterReactor.actualTemp = payload
-  }
+  },
+
 }
+
 
 const actions = {
   showConnectDialog({
@@ -84,12 +92,17 @@ const actions = {
   }, payload) {
     commit('heaterReactorTarget', payload)
   },
-  populateTemps({
+  populateTemps({ // This action is triggered by ipc not the GUI/Vue
     commit
   }, payload) {
     commit('heaterReactorActual', payload[0])
     commit('heaterLeftActual', payload[1])
     commit('heaterRightActual', payload[2])
+    let actuals = {
+      _id: Date.now().toString(),
+      temps: payload
+    }
+    db.put(actuals)
   }
 }
 

@@ -5,22 +5,27 @@ import HardwareController from './modules/HardwareController'
 import SerialConnection from './modules/SerialConnection'
 import db from '@/api/pouchDB'
 
-var doc = {
-  "_id": "mittens2",
-  "name": "Mittens",
-  "occupation": "kitten",
-  "age": 3,
-  "hobbies": [
-    "playing with balls of yarn",
-    "chasing laser pointers",
-    "lookin' hella cute"
-  ]
-};
+db.remote.info().then(function (info) {
+  console.log(info);
+})
 
-db.put(doc);
-db.get('mittens2').then(function (doc) {
-  console.log(doc);
+// var doc = {
+//   "_id": "mittens2",
+//   "name": "Mittens",
+//   "occupation": "kitten",
+//   "age": 3,
+//   "hobbies": [
+//     "playing with balls of yarn",
+//     "chasing laser pointers",
+//     "lookin' hella cute"
+//   ]
+// };
+
+// db.put(doc);
+db.get('mittens2').then(function (mit2) {
+  console.log(mit2);
 });
+
 
 // import ipcRenderer from 'electron'
 const {
@@ -39,17 +44,16 @@ ipcRenderer.on('got-port-confirmed', (event, arg) => {
 
 ipcRenderer.on('handshakeComplete', (event, arg) => {
   store.dispatch("handshakeComplete", true)
-  console.log(store.state.HardwareController)
   setInterval(function () {
-    //console.log("5 second interval");
     ipcRenderer.send('give-me-temps')
   }, 3000);
-
 })
 
 ipcRenderer.on('tempsArrayReady', (event, arg) => {
   store.dispatch('populateTemps', arg)
 })
+
+
 
 Vue.use(Vuex)
 
