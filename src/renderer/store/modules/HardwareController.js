@@ -103,6 +103,7 @@ const actions = {
       temps: payload
     }
     db.put(actuals)
+    // db.remote.put(actuals)
   }
 }
 

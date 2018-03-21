@@ -9,23 +9,6 @@ db.remote.info().then(function (info) {
   console.log(info);
 })
 
-// var doc = {
-//   "_id": "mittens2",
-//   "name": "Mittens",
-//   "occupation": "kitten",
-//   "age": 3,
-//   "hobbies": [
-//     "playing with balls of yarn",
-//     "chasing laser pointers",
-//     "lookin' hella cute"
-//   ]
-// };
-
-// db.put(doc);
-db.get('mittens2').then(function (mit2) {
-  console.log(mit2);
-});
-
 
 // import ipcRenderer from 'electron'
 const {
