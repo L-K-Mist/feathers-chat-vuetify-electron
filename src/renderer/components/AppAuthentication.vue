@@ -30,8 +30,8 @@
 
 <script>
 // Adding Components is a three-step process
-import LogIn from "./LogIn"; // 1) IMPORT the File
-import SignUp from "./SignUp";
+import LogIn from "@/components/authentication/LogIn"; // 1) IMPORT the File
+import SignUp from "@/components/authentication/SignUp";
 
 export default {
   computed: {

@@ -67,7 +67,6 @@ export default {
       //heaterRightActual: 20,
       heaterRightTarget: 150,
       reactorTarget: 0,
-      disabled: true,
       leftFanOn: false,
       rightFanOn: false
     };
@@ -99,20 +98,22 @@ export default {
     }
   },
   watch: {
+    heaterLeftTarget: debounce(function(newVal) {
+      console.log("value of heater left: ", newVal);
+      this.$store.dispatch("heaterLeftTarget", newVal);
+    }, 1000),
+    heaterRightTarget: debounce(function(newVal) {
+      console.log("value of heater left: ", newVal);
+      this.$store.dispatch("heaterRightTarget", this.heaterRightTarget); //this should be triggered by event
+    }, 1000),
     leftFanOnNewValFromStore: function(newVal) {
-      this.leftFanOn = leftFanOnReactive;
+      this.leftFanOn = newVal;
     },
     rightFanOnNewValFromStore: function(newVal) {
-      this.rightFanOn = rightFanOnReactive;
-    },
-    heaterLeftTarget: function(newVal) {
-      this.$store.dispatch("heaterLeftTarget", this.heaterLeftTarget); //this should be triggered by event
+      this.rightFanOn = newVal;
     },
     heaterLeftNewValFromStore(newVal) {
       this.heaterLeftTarget = newVal;
-    },
-    heaterRightTarget: function(newVal) {
-      this.$store.dispatch("heaterRightTarget", this.heaterRightTarget); //this should be triggered by event
     },
     heaterRightNewValFromStore(newVal) {
       this.heaterRightTarget = newVal;

@@ -1,8 +1,7 @@
 <template>
   <v-container>
       <v-card>
-        <v-layout row>         
-          <app-users></app-users>           
+        <v-layout row>             
           <app-messages></app-messages>
         </v-layout>
       </v-card>
@@ -10,16 +9,14 @@
 </template>
 
 <script>
-import AppMessages from "./messages";
-import AppUsers from "./users";
+import AppMessages from "@/components/chat/messages";
 
 export default {
   data() {
     return {};
   },
   components: {
-    AppMessages,
-    AppUsers
+    AppMessages
   }
 };
 </script>

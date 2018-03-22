@@ -1,37 +1,18 @@
 <template>
   <div id="app">
     <v-app dark>
+      <user-guide-dialogue :dialog="loginDialogue.show"></user-guide-dialogue>
       <v-navigation-drawer
-        :mini-variant="miniVariant"
+        name="chat-drawer"
         :clipped="clipped"
         v-model="drawer"
         app
       >
-        <v-list>
-          <v-list-tile 
-            router
-            :to="item.to"
-            :key="i"
-            v-for="(item, i) in items"
-            exact
-          >
-            <v-list-tile-action>
-              <v-icon v-html="item.icon"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <h4>Chat Drawer</h4>
+        <app-chat></app-chat>
       </v-navigation-drawer>
       <v-toolbar fixed app :clipped-left="clipped">
         <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-btn 
-          icon
-          @click.native.stop="miniVariant = !miniVariant"
-        >
-          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-        </v-btn>
         <v-btn
           icon
           @click.native.stop="clipped = !clipped"
@@ -63,22 +44,6 @@
           </v-slide-y-transition>
         </v-container>
       </v-content>
-      <v-navigation-drawer
-        temporary
-        fixed
-        :right="right"
-        v-model="rightDrawer"
-        app
-      >
-        <v-list>
-          <v-list-tile @click.native="right = !right">
-            <v-list-tile-action>
-              <v-icon light>compare_arrows</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
       <v-footer :fixed="fixed" app>
         <v-spacer></v-spacer>
         <span>&copy; 2017</span>
@@ -88,19 +53,27 @@
 </template>
 
 <script>
+import AppChat from "@/components/chat";
 import ConnectDialog from "@/components/ConnectHardware/ConnectHardwareDialog";
+import UserGuideDialogue from "@/components/UserGuideDialogue";
 
 export default {
-  name: "p2d-controller",
+  mounted() {
+    this.$store.dispatch("signInAuto");
+  },
+  //name: "p2d-controller",
   data: () => ({
-    clipped: false,
+    loginDialogue: {
+      show: false
+    },
+
+    clipped: true,
     drawer: true,
     fixed: false,
     items: [
       { icon: "apps", title: "Welcome", to: "/" },
       { icon: "bubble_chart", title: "Inspire", to: "/inspire" }
     ],
-    miniVariant: false,
     right: true,
     rightDrawer: false,
     title: "P2D",
@@ -110,6 +83,10 @@ export default {
   computed: {
     isSerialConnected() {
       return this.$store.getters.hasPortname;
+    },
+    user() {
+      console.log(this.$store.getters.user);
+      return this.$store.getters.user;
     }
   },
   methods: {
@@ -126,10 +103,23 @@ export default {
       if ((value = true)) {
         this.$router.replace({ name: "controller" });
       }
+    },
+    user(value) {
+      if (value !== null && value !== undefined) {
+        // Make sure there's an authenticated user
+        this.showWelcome = true;
+        this.$store.dispatch("fetchUsers");
+        this.$store.dispatch("fetchMessages"); // Now that we know there's an authenticated user, we can request messages from the database for our store. - BECAUSE - if we trigger a fetch before there's a logged in user, feathers throws an error.
+        //this.$router.replace({ name: "AppChat" });
+      } else {
+        this.$store.dispatch("showLoginGuide", true);
+      }
     }
   },
   components: {
-    ConnectDialog
+    ConnectDialog,
+    AppChat,
+    UserGuideDialogue
   }
 };
 </script>

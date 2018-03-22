@@ -20,6 +20,11 @@ export default new Router({
       component: require('@/components/dashboard').default
     },
     {
+      path: '/authentication',
+      name: 'AppAuthentication',
+      component: require('@/components/AppAuthentication').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
