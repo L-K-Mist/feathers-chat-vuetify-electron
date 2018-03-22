@@ -13,11 +13,13 @@ db.remote.info().then(function (info) {
 
 feathers.service('slider').on('updated', value => {
   console.log('value is: ', value)
-  // if (value.payload.id === 1) {
-  //   store.commit('heaterLeftTarget', value.payload);
-  // } else if (value.id === 2) {
-  //   store.commit('heaterRightTarget', )
-  // }
+  if (value.id === 1) {
+    store.commit('heaterLeftTarget', value.payload);
+  } else if (value.id === 2) {
+    store.commit('heaterRightTarget', value.payload)
+  } else if (value.id === 3) {
+    store.commit('heaterReactorTarget', value.payload)
+  }
 
 })
 

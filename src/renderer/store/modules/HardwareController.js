@@ -81,9 +81,10 @@ const actions = {
   async heaterLeftTarget({
     commit
   }, payload) {
-    await feathers.service('slider').update(1, {
-      payload
-    })
+    //disables desktop from changing web
+    // await feathers.service('slider').update(1, {
+    //   payload
+    // })
     commit('heaterLeftTarget', payload)
   },
   heaterRightTarget({
