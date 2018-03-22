@@ -1,4 +1,5 @@
 import db from '@/api/pouchDB'
+import feathers from '@/api/feathers-client'
 
 const state = {
   showConnectDialog: false,
@@ -77,9 +78,12 @@ const actions = {
     // do something async
     commit('showConnectDialog', payload)
   },
-  heaterLeftTarget({
+  async heaterLeftTarget({
     commit
   }, payload) {
+    await feathers.service('slider').update(1, {
+      payload
+    })
     commit('heaterLeftTarget', payload)
   },
   heaterRightTarget({
@@ -98,12 +102,14 @@ const actions = {
     commit('heaterReactorActual', payload[0])
     commit('heaterLeftActual', payload[1])
     commit('heaterRightActual', payload[2])
-    let actuals = {
-      _id: Date.now().toString(),
-      temps: payload
-    }
-    db.put(actuals)
-    // db.remote.put(actuals)
+
+    //  //  Switching off for now
+    //   let actuals = {
+    //     _id: Date.now().toString(),
+    //     temps: payload
+    //   }
+    //   db.put(actuals)
+    //   // db.remote.put(actuals)
   }
 }
 
