@@ -1,6 +1,7 @@
 import db from '@/api/pouchDB'
 import feathers from '@/api/feathers-client'
 
+
 const state = {
   showConnectDialog: false,
   heaterLeft: {
@@ -21,6 +22,7 @@ const state = {
     actualTemp: 15
   }
 }
+
 const getters = {
   showConnectDialog() {
     return state.showConnectDialog
@@ -41,7 +43,6 @@ const getters = {
       reactor: state.heaterReactor.actualTemp
     }
   },
-
 }
 
 const mutations = {
@@ -67,9 +68,14 @@ const mutations = {
   heaterReactorActual: (state, payload) => {
     state.heaterReactor.actualTemp = payload
   },
-
+  fanLeftState: (state, payload) => {
+    state.heaterLeft.fanOn = payload
+    console.log('fan left mutation: ', payload)
+  },
+  fanRightState: (state, payload) => {
+    state.heaterRight.fanOn = payload
+  }
 }
-
 
 const actions = {
   showConnectDialog({
@@ -81,21 +87,43 @@ const actions = {
   async heaterLeftTarget({
     commit
   }, payload) {
-    //disables desktop from changing web
-    // await feathers.service('slider').update(1, {
-    //   payload
-    // })
     commit('heaterLeftTarget', payload)
+    await feathers.service('slider').update(1, {
+      payload
+    })
   },
-  heaterRightTarget({
+  async heaterRightTarget({
     commit
   }, payload) {
     commit('heaterRightTarget', payload)
+    await feathers.service('slider').update(2, {
+      payload
+    })
   },
-  heaterReactorTarget({
+  async heaterReactorTarget({
     commit
   }, payload) {
     commit('heaterReactorTarget', payload)
+    await feathers.service('slider').update(3, {
+      payload
+    })
+  },
+  async fanLeftState({
+    commit
+  }, payload) {
+    commit('fanLeftState', payload)
+    let response = await feathers.service('switches').update(1, {
+      payload
+    })
+    console.log('action response ', response)
+  },
+  async fanRightState({
+    commit
+  }, payload) {
+    commit('fanRightState', payload)
+    await feathers.service('switches').update(2, {
+      payload
+    })
   },
   populateTemps({ // This action is triggered by ipc not the GUI/Vue
     commit

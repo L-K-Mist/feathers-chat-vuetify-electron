@@ -24,6 +24,7 @@
 </template>
 <script>
 import TempSlider from "@/components/ReUse/TempSlider";
+import debounce from "@/helpers/debounce";
 import FlasherSlider from "@/components/ReUse/FlasherSlider";
 export default {
   data() {
@@ -42,9 +43,9 @@ export default {
     }
   },
   watch: {
-    heaterReactorTarget: function(newVal) {
-      this.$store.dispatch("heaterReactorTarget", this.heaterReactorTarget); //this should be triggered by event
-    },
+    heaterReactorTarget: debounce(function(newVal) {
+      this.$store.dispatch("heaterReactorTarget", newVal);
+    }, 1000),
     heaterReactorNewValFromStore(newVal) {
       this.heaterReactorTarget = newVal;
     }

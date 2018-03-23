@@ -106,6 +106,12 @@ export default {
       console.log("value of heater left: ", newVal);
       this.$store.dispatch("heaterRightTarget", this.heaterRightTarget); //this should be triggered by event
     }, 1000),
+    leftFanOn: function(newVal) {
+      this.$store.dispatch("fanLeftState", newVal);
+    },
+    rightFanOn: function(newVal) {
+      this.$store.dispatch("fanRightState", newVal);
+    },
     leftFanOnNewValFromStore: function(newVal) {
       this.leftFanOn = newVal;
     },

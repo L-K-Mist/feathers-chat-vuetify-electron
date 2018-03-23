@@ -8,7 +8,7 @@
         </v-layout>
     </v-container>
 </template>
-
+ 
 <script>
 import MainReactor from "@/components/dashboard/Reactor";
 import WasteInlets from "@/components/dashboard/WasteInlets";
