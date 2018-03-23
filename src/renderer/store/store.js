@@ -56,7 +56,7 @@ ipcRenderer.on('tempsArrayReady', (event, arg) => {
   store.dispatch('populateTemps', arg)
 })
 
-
+// Keeping Authentication here front and center. The rest in modules
 Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
@@ -232,8 +232,9 @@ export const store = new Vuex.Store({
     }
   },
   modules: {
+    // Place to add modularized store items
     userGuide,
     HardwareController,
-    SerialConnection
+    ExecutiveOverride
   }
 })
