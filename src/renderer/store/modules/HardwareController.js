@@ -19,12 +19,13 @@ const state = {
   heaterReactor: {
     name: "Reactor",
     targetTemp: 0,
-    actualTemp: 15
+    actualTemp: 15,
+    blowerSpeed: 60
   }
 }
 
 const getters = {
-  showConnectDialog() {
+  showConnectDialog(state) {
     return state.showConnectDialog
   },
   heaterLeft: state => {
@@ -43,6 +44,9 @@ const getters = {
       reactor: state.heaterReactor.actualTemp
     }
   },
+  blowerSpeed(state) {
+    return state.heaterReactor.blowerSpeed
+  }
 }
 
 const mutations = {
@@ -74,6 +78,9 @@ const mutations = {
   },
   fanRightState: (state, payload) => {
     state.heaterRight.fanOn = payload
+  },
+  blowerSpeed: (state, payload) => {
+    state.heaterReactor.blowerSpeed = payload
   }
 }
 
@@ -125,6 +132,14 @@ const actions = {
       payload
     })
   },
+  async blowerSpeed({
+    commit
+  }, payload) {
+    commit("blowerSpeed", payload)
+    await feathers.service('slider').update(4, {
+      payload
+    })
+  },
   populateTemps({ // This action is triggered by ipc not the GUI/Vue
     commit
   }, payload) {
@@ -139,7 +154,7 @@ const actions = {
     //   }
     //   db.put(actuals)
     //   // db.remote.put(actuals)
-  }
+  },
 }
 
 export default {

@@ -12,7 +12,7 @@
 <script>
 import MainReactor from "@/components/dashboard/Reactor";
 import WasteInlets from "@/components/dashboard/WasteInlets";
-const { ipcRenderer } = require("electron");
+// const { ipcRenderer } = require("electron");
 export default {
   data() {
     return {};
@@ -20,13 +20,13 @@ export default {
   methods: {},
 
   mounted() {
-    setInterval(() => {
-      this.$electron.ipcRenderer.send("ping");
-    }, 1000);
-    this.$electron.ipcRenderer.on("pong", (event, data) => {
-      this.myDataVar = data;
-      console.log(data);
-    });
+    // setInterval(() => {
+    //   this.$electron.ipcRenderer.send("ping");
+    // }, 1000);
+    // this.$electron.ipcRenderer.on("pong", (event, data) => {
+    //   this.myDataVar = data;
+    //   console.log(data);
+    // });
   },
   components: {
     MainReactor,

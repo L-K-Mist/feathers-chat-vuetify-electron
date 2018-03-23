@@ -14,7 +14,7 @@
             </v-layout> 
             <v-layout row wrap>
                 <v-spacer></v-spacer>
-                <flasher-slider name="Furnace Intensity"  
+                <flasher-slider name="Furnace Blower Intensity"  
                 v-model="blowerSpeed" 
                 :targetTemp='blowerSpeed'></flasher-slider>                           
                 <v-spacer></v-spacer>
@@ -37,7 +37,9 @@ export default {
     heaterReactorActual() {
       return this.$store.getters.heaterReactor.actualTemp;
     },
-
+    blowerSpeedNewValFromStore() {
+      return this.$store.getters.heaterReactor.blowerSpeed;
+    },
     heaterReactorNewValFromStore() {
       return this.$store.getters.heaterReactor.targetTemp;
     }
@@ -48,7 +50,14 @@ export default {
     }, 1000),
     heaterReactorNewValFromStore(newVal) {
       this.heaterReactorTarget = newVal;
-    }
+    },
+    blowerSpeedNewValFromStore(newVal) {
+      this.blowerSpeed = newVal;
+    },
+    blowerSpeed: debounce(function(newVal) {
+      this.$store.dispatch("blowerSpeed", newVal);
+      console.log("debounce triggered");
+    }, 500)
   },
   components: { TempSlider, FlasherSlider }
 };
