@@ -21,7 +21,11 @@ const state = {
     targetTemp: 0,
     actualTemp: 15,
     blowerSpeed: 60
-  }
+  },
+  rawActualTemps: [],
+  rawTargetTemps: [], // TODO flesh out below
+  rawSwitchStates: [] // TODO flesh out below
+
 }
 
 const getters = {
@@ -46,7 +50,10 @@ const getters = {
   },
   blowerSpeed(state) {
     return state.heaterReactor.blowerSpeed
-  }
+  },
+  rawActualTemps: state => {
+    return state.rawActualTemps
+  },
 }
 
 const mutations = {
@@ -81,7 +88,11 @@ const mutations = {
   },
   blowerSpeed: (state, payload) => {
     state.heaterReactor.blowerSpeed = payload
-  }
+  },
+  rawActualTemps(state, payload) {
+    state.rawActualTemps = payload
+    console.log('mutation ', state.rawActualTemps)
+  },
 }
 
 const actions = {
@@ -146,6 +157,7 @@ const actions = {
     commit('heaterReactorActual', payload[0])
     commit('heaterLeftActual', payload[1])
     commit('heaterRightActual', payload[2])
+    commit('rawActualTemps', payload)
 
     //  //  Switching off for now
     //   let actuals = {
