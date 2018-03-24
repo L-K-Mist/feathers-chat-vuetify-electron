@@ -5,7 +5,6 @@ import feathers from '@/api/feathers-client'
 import HardwareController from './modules/HardwareController'
 import SerialConnection from './modules/SerialConnection'
 import userGuide from './modules/userGuide'
-import ExecutiveOverride from './modules/ExecutiveOverride'
 import db from '@/api/pouchDB'
 
 db.remote.info().then(function (info) {
@@ -57,7 +56,7 @@ ipcRenderer.on('tempsArrayReady', (event, arg) => {
   store.dispatch('populateTemps', arg)
 })
 
-// Keeping Authentication here front and center. The rest in modules
+
 Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
@@ -233,10 +232,8 @@ export const store = new Vuex.Store({
     }
   },
   modules: {
-    // Place to add modularized store items
     userGuide,
     HardwareController,
-    ExecutiveOverride,
     SerialConnection
   }
 })
