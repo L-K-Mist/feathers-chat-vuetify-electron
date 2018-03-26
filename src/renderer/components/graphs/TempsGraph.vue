@@ -1,23 +1,36 @@
 <template>
   <v-container >
-    <v-card class="pa-4 scroll-y" fluid light>
-        <line-chart  :data="chartData" :options="chartOptions" :width="1600"  :height="600"></line-chart>
-    </v-card>
+     <date-toolbar></date-toolbar>
+      <v-card class="pa-4 scroll-y" fluid light>
+        <line-chart style="padding-right: 30px" :data="chartData" :options="chartOptions" :width="1600"  :height="600"></line-chart>
+      </v-card>
   </v-container>
 </template>
 
 <script>
 import LineChart from "./LineChart.js";
-
+import DateToolbar from "./DateToolbar";
 export default {
   components: {
-    LineChart
+    LineChart,
+    DateToolbar
   },
   data() {
     return {
+      items: [
+        { text: "26-03-2018" },
+        { text: "27-03-2018" },
+        { text: "28-03-2018" },
+        { text: "29-03-2018" },
+        { text: "26-03-2018" },
+        { text: "26-03-2018" },
+        { text: "26-03-2018" }
+      ],
+
       chartOptions: {
+        devicePixelRatio: 2,
         responsive: false,
-        showLines: false,
+        showLines: true,
         scales: {
           yAxes: [
             {
@@ -57,11 +70,47 @@ export default {
         ],
         datasets: [
           {
-            label: "Target Temps",
-            backgroundColor: "#f87979",
+            label: "Actual Temps",
+            backgroundColor: "rgba(255, 99, 255, 0.2)",
             data: [
+              30,
+              40,
+              50,
+              60,
+              70,
+              80,
+              85,
+              90,
+              95,
+              100,
+              105,
+              110,
+              115,
+              120,
+              125,
+              130,
+              135,
+              140,
+              142,
+              144,
+              146,
+              148,
               150,
+              152,
+              154,
+              154,
+              152,
               150,
+              148,
+              150
+            ]
+          },
+          {
+            label: "Target Temps",
+            backgroundColor: "rgba(255, 99, 0, 0.2)",
+            data: [
+              0,
+              80,
               150,
               150,
               150,
@@ -98,6 +147,11 @@ export default {
   },
   mounted() {
     this.fillData();
+  },
+  computed: {
+    state() {
+      this.$store.getters.historyState;
+    }
   },
   methods: {
     fillData() {

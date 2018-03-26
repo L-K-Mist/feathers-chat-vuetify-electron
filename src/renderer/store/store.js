@@ -6,6 +6,7 @@ import HardwareController from './modules/HardwareController'
 import SerialConnection from './modules/SerialConnection'
 import userGuide from './modules/userGuide'
 import ExecutiveOverride from './modules/ExecutiveOverride'
+import DataAnalysis from './modules/DataAnalysis'
 import db from '@/api/pouchDB'
 
 
@@ -238,6 +239,7 @@ export const store = new Vuex.Store({
     userGuide,
     HardwareController,
     ExecutiveOverride,
-    SerialConnection
+    SerialConnection,
+    DataAnalysis
   }
 })
