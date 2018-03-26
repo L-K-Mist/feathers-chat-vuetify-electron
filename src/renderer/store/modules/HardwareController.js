@@ -1,6 +1,6 @@
 import db from '@/api/pouchDB'
 import feathers from '@/api/feathers-client'
-
+import moment from "moment";
 
 const state = {
   showConnectDialog: false,
@@ -169,8 +169,9 @@ const actions = {
     state
   }) {
     setInterval(() => { // Once every 30 seconds save system state for future analysis
-      let actuals = {
-        _id: Date.now().toString(),
+      let now = moment().format("DD-MM-YYYY hh:mm:ss").toString()
+      let actuals = { // actuals is: The object to save in each document. The unique id is the timestamp and the rest is the machine state at that moment
+        _id: now,
         ...state
       }
       console.log(actuals);

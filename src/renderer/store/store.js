@@ -8,6 +8,7 @@ import userGuide from './modules/userGuide'
 import ExecutiveOverride from './modules/ExecutiveOverride'
 import db from '@/api/pouchDB'
 
+
 db.remote.info().then(function (info) {
   console.log(info);
 })
