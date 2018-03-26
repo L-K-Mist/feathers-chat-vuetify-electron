@@ -13,6 +13,23 @@ db.remote = new PouchDB('https://foranserentaysedisunceal:7cee35e9bbd81f8a031154
 PouchDB.debug.enable('*');
 PouchDB.debug.disable()
 
+db.info().then(function (info) {
+    console.log(info);
+})
 
+var actualTemps_Reactor = [];
+
+db.allDocs({
+    include_docs: true
+}).then(function (result) {
+    console.log(result);
+    result.rows.forEach(function (row) {
+        actualTemps_Reactor.push(row.doc.heaterReactor.actualTemp)
+    })
+    //console.log(actualTemps_Reactor);
+
+}).catch(function (err) {
+    console.log(err);
+});
 
 export default db

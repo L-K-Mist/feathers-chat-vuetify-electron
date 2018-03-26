@@ -25,9 +25,7 @@ const state = {
   rawActualTemps: [],
   rawTargetTemps: [], // TODO flesh out below
   rawSwitchStates: [] // TODO flesh out below
-
-}
-
+};
 const getters = {
   showConnectDialog(state) {
     return state.showConnectDialog
@@ -54,6 +52,13 @@ const getters = {
   rawActualTemps: state => {
     return state.rawActualTemps
   },
+  rawTargetTemps: state => {
+    return [
+      state.heaterLeft.targetTemp,
+      state.heaterRight.targetTemp,
+      state.heaterReactor.targetTemp
+    ]
+  }
 }
 
 const mutations = {
@@ -81,7 +86,7 @@ const mutations = {
   },
   fanLeftState: (state, payload) => {
     state.heaterLeft.fanOn = payload
-    console.log('fan left mutation: ', payload)
+    //console.log('fan left mutation: ', payload)
   },
   fanRightState: (state, payload) => {
     state.heaterRight.fanOn = payload
@@ -91,7 +96,7 @@ const mutations = {
   },
   rawActualTemps(state, payload) {
     state.rawActualTemps = payload
-    console.log('mutation ', state.rawActualTemps)
+    //console.log('mutation ', state.rawActualTemps)
   },
 }
 
@@ -133,7 +138,7 @@ const actions = {
     let response = await feathers.service('switches').update(1, {
       payload
     })
-    console.log('action response ', response)
+    //console.log('action response ', response)
   },
   async fanRightState({
     commit
@@ -158,15 +163,21 @@ const actions = {
     commit('heaterLeftActual', payload[1])
     commit('heaterRightActual', payload[2])
     commit('rawActualTemps', payload)
-
-    //  //  Switching off for now
-    //   let actuals = {
-    //     _id: Date.now().toString(),
-    //     temps: payload
-    //   }
-    //   db.put(actuals)
-    //   // db.remote.put(actuals)
   },
+
+  timedStateSnapshot({ // Only start the updating process when this action is triggered (by the serial connection event)
+    state
+  }) {
+    setInterval(() => { // Once every 30 seconds save system state for future analysis
+      let actuals = {
+        _id: Date.now().toString(),
+        ...state
+      }
+      console.log(actuals);
+      db.put(actuals)
+      // db.remote.put(actuals)
+    }, 30 * 1000);
+  }
 }
 
 export default {

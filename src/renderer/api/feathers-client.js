@@ -9,10 +9,14 @@ import auth from '@feathersjs/authentication-client'
 import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:3030/', {
+const socket = io('http://localhost:3030/', { // TODO review how we got Production working in online chat example
   transports: ['websocket'],
   forceNew: true
-}) // TODO use env variables for production
+})
+
+// TODO Playtime: put pure non-db non-feathers system signals here and see what happens
+
+
 const feathers = Feathers()
   .configure(socketio(socket))
   .configure(auth({

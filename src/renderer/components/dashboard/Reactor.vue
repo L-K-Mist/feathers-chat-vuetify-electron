@@ -56,7 +56,7 @@ export default {
     },
     blowerSpeed: debounce(function(newVal) {
       this.$store.dispatch("blowerSpeed", newVal);
-      console.log("debounce triggered");
+      // console.log("debounce triggered");
     }, 500)
   },
   components: { TempSlider, FlasherSlider }

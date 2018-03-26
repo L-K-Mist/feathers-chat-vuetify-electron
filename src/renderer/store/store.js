@@ -36,11 +36,6 @@ const {
   ipcRenderer
 } = require('electron')
 
-ipcRenderer.send('asynchronous-message', 'ping')
-
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg) // prints "pong"
-})
 ipcRenderer.on('got-port-confirmed', (event, arg) => {
   console.log("connection confirmed ", arg)
   store.dispatch('showConnectDialog', false)
@@ -49,12 +44,17 @@ ipcRenderer.on('got-port-confirmed', (event, arg) => {
 ipcRenderer.on('handshakeComplete', (event, arg) => {
   store.dispatch("handshakeComplete", true)
   setInterval(function () {
-    ipcRenderer.send('give-me-temps')
-  }, 3000);
+    ipcRenderer.send('give-me-temps') // Every 3 seconds ask Main process to ask arduino for temps
+  }, 3000); // 
+  store.dispatch('timedStateSnapshot') // Trigger the setInterval based action for 30 second updates of Machine State to DB for future analysis
 })
 
 ipcRenderer.on('tempsArrayReady', (event, arg) => {
   store.dispatch('populateTemps', arg)
+})
+
+ipcRenderer.on('serialPortError', (event, error) => {
+  console.log('Dee we have an SP problem: ', error)
 })
 
 // Keeping Authentication here front and center. The rest in modules

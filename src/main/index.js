@@ -41,7 +41,6 @@ function initializePort(portname) {
       console.log("Handshake Complete, Protocol begun ")
     } else if (handshakeComplete == true) {
       if (data[0] == "T") {
-
         var stringToCSV = CSV.parse(data, {
           cast: ['String', 'Number', 'Number', 'Number', 'Number', 'Number']
         });
@@ -51,6 +50,10 @@ function initializePort(portname) {
       }
     }
   });
+  myPort.on('error', (error) => {
+    console.log('Dee we have an SP problem: ', error)
+    mainWindow.webContents.send("serialPortError", error.toString())
+  })
 }
 
 /**

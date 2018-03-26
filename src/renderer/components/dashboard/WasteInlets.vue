@@ -99,11 +99,11 @@ export default {
   },
   watch: {
     heaterLeftTarget: debounce(function(newVal) {
-      console.log("value of heater left: ", newVal);
+      // console.log("value of heater left: ", newVal);
       this.$store.dispatch("heaterLeftTarget", newVal);
     }, 1000),
     heaterRightTarget: debounce(function(newVal) {
-      console.log("value of heater left: ", newVal);
+      // console.log("value of heater left: ", newVal);
       this.$store.dispatch("heaterRightTarget", this.heaterRightTarget); //this should be triggered by event
     }, 1000),
     leftFanOn: function(newVal) {
