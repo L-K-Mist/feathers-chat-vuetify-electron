@@ -22,11 +22,11 @@ var actualTemps_Reactor = [];
 db.allDocs({
     include_docs: true
 }).then(function (result) {
-    console.log(result);
+    //console.log(result);
     result.rows.forEach(function (row) {
         actualTemps_Reactor.push(row.doc.heaterReactor.actualTemp)
     })
-    //console.log(actualTemps_Reactor);
+    console.log(actualTemps_Reactor);
 
 }).catch(function (err) {
     console.log(err);
