@@ -13,6 +13,7 @@ const state = {
     actualTemps_Reactor: null,
     targetTemps_Reactor: null,
     startDate: "",
+    endkey: null, // there's no startkey needed, because that is the same as start-date. It's endkey that needs the extra "\uffff" tacked on to the end
     endDate: ""
 };
 
@@ -23,21 +24,26 @@ const getters = {
 };
 
 const mutations = {
-    // Explicitly sets the state of isAuthenticated to true or false
     newStartDate: (state, payload) => {
         state.startDate = payload;
         console.log('mutated', state.startDate);
+
     },
     newEndDate: (state, payload) => {
         state.endDate = payload;
         console.log('mutated', state.endDate);
+        var _endkey = state.endDate + "\uffff"
+        //console.log(_endkey);
+        //console.log('26-03-2018\uffff');
+        state.endkey = _endkey
     },
 };
 
 const actions = {
     // Dialogue actions
     fetchData: ({
-        commit
+        commit,
+        rootState, // This is how you can access the state from other modules. Not totally necessary here as I'm aiming for a local state object, but sticking with it, because I wish I knew this earlier. see: https://forum.vuejs.org/t/get-state-from-another-module-does-any-one-have-the-same-problem/4380/3
     }, payload) => {
         var _timestamp_Labels = []; // For the graph axis
         var _actualTemps_Reactor = [];
