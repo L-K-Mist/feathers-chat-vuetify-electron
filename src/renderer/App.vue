@@ -27,6 +27,7 @@
         </v-btn>
         <v-toolbar-title v-text="title"></v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn to="Graphs">Data Analysis</v-btn>
         <v-btn to="controller">Dashboard</v-btn>
         <v-btn @click.native.stop="getPorts" ><v-icon class="pr-2">import_export</v-icon>Connect Hardware</v-btn>
         <v-btn

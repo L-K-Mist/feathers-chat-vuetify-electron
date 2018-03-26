@@ -25,6 +25,11 @@ export default new Router({
       component: require('@/components/AppAuthentication').default
     },
     {
+      path: '/graphs',
+      name: 'Graphs',
+      component: require('@/components/Graphs').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
