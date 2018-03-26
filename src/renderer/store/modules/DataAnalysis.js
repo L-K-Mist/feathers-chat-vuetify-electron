@@ -51,8 +51,8 @@ const actions = {
 
         db.allDocs({
             include_docs: true,
-            startkey: '26-03-2018',
-            endkey: '26-03-2018\uffff'
+            startkey: rootState.startDate,
+            endkey: rootState.endkey
         }).then(function (result) {
             console.log(result);
             result.rows.forEach(function (row) { // Actual temps history
@@ -73,7 +73,7 @@ const actions = {
         }).catch(function (err) {
             console.log(err);
         });
-        commit('someMutation', payload);
+        //commit('someMutation', payload);
     },
     newStartDate: ({
         commit

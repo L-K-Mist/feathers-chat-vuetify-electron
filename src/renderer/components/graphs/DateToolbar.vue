@@ -22,7 +22,7 @@
               <v-date-picker v-model="startDate" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="fromModal = false">Cancel</v-btn>
-                <v-btn flat color="primary" @click="$refs.fromDialog.save(startDate)">OK</v-btn>
+                <v-btn flat color="primary" @click="$refs.fromDialog.save(startDate); attemptSend()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
           </v-flex>
@@ -46,7 +46,7 @@
               <v-date-picker v-model="endDate" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="toModal = false">Cancel</v-btn>
-                <v-btn flat color="primary" @click="$refs.toDialog.save(endDate)">OK</v-btn>
+                <v-btn flat color="primary" @click="$refs.toDialog.save(endDate); attemptSend()">OK</v-btn>
               </v-date-picker>
             </v-dialog>
           </v-flex>
@@ -71,6 +71,15 @@ export default {
     endDate(newVal) {
       console.log("newEndDate", newVal);
       this.$store.dispatch("newStartDate", newVal);
+    }
+  },
+  methods: {
+    attemptSend() {
+      if (this.startDate !== null && this.endDate !== null) {
+        this.$store.dispatch("fetchData");
+      } else {
+        console.log("false START");
+      }
     }
   }
 };
