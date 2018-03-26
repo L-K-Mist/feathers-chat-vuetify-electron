@@ -1,8 +1,7 @@
 <template>
-  <div class="small">
-    <line-chart :chart-data="datacollection"></line-chart>
-    <button @click="fillData()">Randomize</button>
-  </div>
+  <!-- <div class="small"> -->
+    <line-chart :data="chartData" :options="chartOptions"></line-chart>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -14,7 +13,48 @@ export default {
   },
   data() {
     return {
-      datacollection: null
+      chartData: {
+        labels: ["January", "February"],
+        datasets: [
+          {
+            label: "GitHub Commits",
+            backgroundColor: "#f87979",
+            data: chartData: [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ]
+          }
+        ]
+      },
+      
     };
   },
   mounted() {
@@ -47,7 +87,7 @@ export default {
 
 <style>
 .small {
-  max-width: 600px;
+  max-width: 1600px;
   margin: 150px auto;
 }
 </style>
