@@ -62,11 +62,10 @@ export default {
   data() {
     return {
       fanCardWidth: "8",
-      heaterLeftTarget: 150,
+      heaterLeftTarget: 60,
       //heaterLeftActual: 20,
       //heaterRightActual: 20,
-      heaterRightTarget: 150,
-      reactorTarget: 0,
+      heaterRightTarget: 60,
       leftFanOn: false,
       rightFanOn: false
     };

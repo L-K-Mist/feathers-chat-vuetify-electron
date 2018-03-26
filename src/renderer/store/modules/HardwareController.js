@@ -6,21 +6,21 @@ const state = {
   showConnectDialog: false,
   heaterLeft: {
     name: "Left Inlet",
-    targetTemp: 0,
-    actualTemp: 10,
+    targetTemp: 60,
+    actualTemp: 25,
     fanOn: false
   },
   heaterRight: {
     name: "Right Inlet",
-    targetTemp: 0,
-    actualTemp: 10,
+    targetTemp: 60,
+    actualTemp: 25,
     fanOn: false
   },
   heaterReactor: {
     name: "Reactor",
-    targetTemp: 0,
+    targetTemp: 150,
     actualTemp: 15,
-    blowerSpeed: 60
+    blowerSpeed: 50
   },
   rawActualTemps: [],
   rawTargetTemps: [], // TODO flesh out below

@@ -29,8 +29,8 @@ import FlasherSlider from "@/components/ReUse/FlasherSlider";
 export default {
   data() {
     return {
-      heaterReactorTarget: 30,
-      blowerSpeed: 100
+      heaterReactorTarget: 150,
+      blowerSpeed: 50
     };
   },
   computed: {

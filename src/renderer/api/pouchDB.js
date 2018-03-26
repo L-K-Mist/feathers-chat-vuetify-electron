@@ -17,19 +17,33 @@ db.info().then(function (info) {
     console.log(info);
 })
 
+var timestamp_Labels = []; // For the graph axis
 var actualTemps_Reactor = [];
+var targetTemps_Reactor = [];
 
 db.allDocs({
     include_docs: true
 }).then(function (result) {
     //console.log(result);
-    result.rows.forEach(function (row) {
+    result.rows.forEach(function (row) { // Actual temps history
         actualTemps_Reactor.push(row.doc.heaterReactor.actualTemp)
     })
-    console.log(actualTemps_Reactor);
+    console.log("actualTemps_Reactor", actualTemps_Reactor);
+
+    result.rows.forEach(function (row) { // Target temps history
+        targetTemps_Reactor.push(row.doc.heaterReactor.targetTemp)
+    })
+    console.log("targetTemps_Reactor", targetTemps_Reactor);
+
+    result.rows.forEach(function (row) { // timestamps for above histories
+        timestamp_Labels.push(row.doc._id)
+    })
+    console.log("timestamp_Labels", timestamp_Labels);
+
 
 }).catch(function (err) {
     console.log(err);
 });
+
 
 export default db
