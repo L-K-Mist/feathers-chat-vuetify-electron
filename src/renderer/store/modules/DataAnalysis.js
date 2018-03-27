@@ -2,18 +2,12 @@ import db from '@/api/pouchDB'
 import moment from "moment";
 
 
-/***
- allDocs({ startkey: 'album_bowie_', endkey: 'album_bowie_\uffff' });
- * 
- */
-
-
 const state = {
     timestamp_Labels: null,
     actualTemps_Reactor: null,
     targetTemps_Reactor: null,
     startDate: "",
-    endkey: null, // there's no startkey needed, because that is the same as start-date. It's endkey that needs the extra "\uffff" tacked on to the end
+    endkey: null, // there's no startkey needed here, because that is the same as start-date. It's endkey that needs the extra "\uffff" tacked on to the end
     endDate: ""
 };
 
@@ -21,21 +15,42 @@ const getters = {
     historyState: state => {
         return state;
     },
+    timestamp_Labels: state => {
+        return state.timestamp_Labels;
+    },
+    actualTemps_Reactor: state => {
+        return state.actualTemps_Reactor;
+    },
+    targetTemps_Reactor: state => {
+        return state.targetTemps_Reactor;
+    },
 };
 
 const mutations = {
     newStartDate: (state, payload) => {
         state.startDate = payload;
-        console.log('mutated', state.startDate);
+        //console.log('mutated', state.startDate);
 
     },
     newEndDate: (state, payload) => {
         state.endDate = payload;
-        console.log('mutated', state.endDate);
+        //console.log('mutated', state.endDate);
         var _endkey = state.endDate + "\uffff"
         //console.log(_endkey);
         //console.log('26-03-2018\uffff');
         state.endkey = _endkey
+    },
+    timestamp_Labels: (state, payload) => {
+        state.timestamp_Labels = payload;
+        console.log("mutated timestamp_Labels", state.timestamp_Labels);
+    },
+    actualTemps_Reactor: (state, payload) => {
+        state.actualTemps_Reactor = payload;
+        console.log("mutated actualTemps_Reactor", state.actualTemps_Reactor);
+    },
+    targetTemps_Reactor: (state, payload) => {
+        state.targetTemps_Reactor = payload;
+        console.log("mutated targetTemps_Reactor", state.targetTemps_Reactor);
     },
 };
 
@@ -45,6 +60,7 @@ const actions = {
         commit,
         rootState, // This is how you can access the state from other modules. Not totally necessary here as I'm aiming for a local state object, but sticking with it, because I wish I knew this earlier. see: https://forum.vuejs.org/t/get-state-from-another-module-does-any-one-have-the-same-problem/4380/3
     }, payload) => {
+        // could have skipped these temporary, private variables but needed to test this function bit by bit, isolated from the commits.
         var _timestamp_Labels = []; // For the graph axis
         var _actualTemps_Reactor = [];
         var _targetTemps_Reactor = [];
@@ -62,22 +78,24 @@ const actions = {
             result.rows.forEach(function (row) { // Actual temps history
                 _actualTemps_Reactor.push(row.doc.heaterReactor.actualTemp)
             })
-            //console.log("actualTemps_Reactor", actualTemps_Reactor);
+            //console.log("actualTemps_Reactor", _actualTemps_Reactor);
 
             result.rows.forEach(function (row) { // Target temps history
                 _targetTemps_Reactor.push(row.doc.heaterReactor.targetTemp)
             })
-            //console.log("targetTemps_Reactor", targetTemps_Reactor);
+            //console.log("targetTemps_Reactor", _targetTemps_Reactor);
 
             result.rows.forEach(function (row) { // timestamps for above histories
                 _timestamp_Labels.push(row.doc._id)
             })
-            //console.log("timestamp_Labels", timestamp_Labels);
+            //console.log("timestamp_Labels", _timestamp_Labels);
 
         }).catch(function (err) {
             console.log(err);
         });
-        //commit('someMutation', payload);
+        commit('timestamp_Labels', _timestamp_Labels);
+        commit('actualTemps_Reactor', _actualTemps_Reactor);
+        commit('targetTemps_Reactor', _targetTemps_Reactor);
     },
     newStartDate: ({
         commit
