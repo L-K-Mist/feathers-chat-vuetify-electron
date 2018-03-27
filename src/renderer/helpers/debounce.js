@@ -5,7 +5,7 @@ module.exports = function debounce(fn, delay) {
     var args = arguments
     var that = this
     timeoutID = setTimeout(function () {
-      fn.apply(that, args)
+      fn.apply(that, args) // To understand this line: https://stackoverflow.com/questions/25060026/is-this-fn-applythis-arguments-redundant?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
     }, delay)
   }
 }

@@ -47,6 +47,8 @@ function initializePort(portname) {
         stringToCSV[0].shift();
         let tempsFromArduino = stringToCSV[0]
         mainWindow.webContents.send("tempsArrayReady", tempsFromArduino)
+      } else {
+        console.log('arduino says: ', data)
       }
     }
   });
@@ -102,7 +104,6 @@ app.on('activate', () => {
   }
 })
 
-
 ipcMain.on('got-port-name', (event, arg) => {
   initializePort(arg)
   event.sender.send('got-port-confirmed', myPort)
@@ -111,6 +112,16 @@ ipcMain.on('got-port-name', (event, arg) => {
 ipcMain.on('give-me-temps', (event) => {
   myPort.write("T")
 })
+
+ipcMain.on('signalArduino', (event, arg) => {
+  console.log(arg);
+  myPort.write(arg)
+})
+
+ipcMain.on('binaryCommands', (event, arg) => {
+  myPort.write('A' + arg) // ToDo: Simplify this for consistency. Let the front-end code give neat messages to ipcMain
+})
+
 
 
 /**

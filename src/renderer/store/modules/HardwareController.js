@@ -2,6 +2,10 @@ import db from '@/api/pouchDB'
 import feathers from '@/api/feathers-client'
 import moment from "moment";
 
+const {
+  ipcRenderer
+} = require('electron')
+
 const state = {
   showConnectDialog: false,
   heaterLeft: {
@@ -20,7 +24,11 @@ const state = {
     name: "Reactor",
     targetTemp: 150,
     actualTemp: 15,
-    blowerSpeed: 50
+    blowerSpeed: 50,
+    blowerFlash: {
+      on: 5000,
+      off: 5000
+    }
   },
   rawActualTemps: [],
   rawTargetTemps: [], // TODO flesh out below
@@ -178,7 +186,14 @@ const actions = {
       db.put(actuals)
       // db.remote.put(actuals)
     }, 30 * 1000);
-  }
+  },
+  flashrateFurnaceBlower({ // prepares the signal for ipc to send to arduino
+    commit
+  }, payload) {
+    let _arduinoSignal = `R33,${payload.onTime},${payload.offTime}` // this should come out as for example "R33,5000,5000" if slider was at 50%
+    // console.log(_arduinoSignal); // Yes, seems to be working
+    ipcRenderer.send('signalArduino', _arduinoSignal)
+  },
 }
 
 export default {

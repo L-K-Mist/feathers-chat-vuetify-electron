@@ -26,6 +26,8 @@
 import TempSlider from "@/components/ReUse/TempSlider";
 import debounce from "@/helpers/debounce";
 import FlasherSlider from "@/components/ReUse/FlasherSlider";
+import FlasherHelper from "@/helpers/flasherVal";
+
 export default {
   data() {
     return {
@@ -56,7 +58,8 @@ export default {
     },
     blowerSpeed: debounce(function(newVal) {
       this.$store.dispatch("blowerSpeed", newVal);
-      // console.log("debounce triggered");
+      let _flasherSpeeds = FlasherHelper(newVal); // FlasherHelper turns the slider's percentage value into number of seconds on and off for any disignated flasher-pin on the arduino
+      this.$store.dispatch("flashrateFurnaceBlower", _flasherSpeeds);
     }, 500)
   },
   components: { TempSlider, FlasherSlider }

@@ -43,7 +43,7 @@ export default {
       type: Number
     },
     max: {
-      default: 200,
+      default: 100,
       type: Number
     }
   },

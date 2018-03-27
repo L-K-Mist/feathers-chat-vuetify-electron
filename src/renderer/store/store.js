@@ -9,6 +9,10 @@ import ExecutiveOverride from './modules/ExecutiveOverride'
 import DataAnalysis from './modules/DataAnalysis'
 import db from '@/api/pouchDB'
 
+// import ipcRenderer from 'electron'
+const {
+  ipcRenderer
+} = require('electron')
 
 db.remote.info().then(function (info) {
   console.log(info);
@@ -33,10 +37,6 @@ feathers.service('switches').on('updated', value => {
     store.commit('fanRightState', value.payload);
   }
 })
-// import ipcRenderer from 'electron'
-const {
-  ipcRenderer
-} = require('electron')
 
 ipcRenderer.on('got-port-confirmed', (event, arg) => {
   console.log("connection confirmed ", arg)
