@@ -1,6 +1,7 @@
 <template>
    <v-toolbar color="indigo" dark>
         <v-toolbar-title>Compare Actual Temps with Targets</v-toolbar-title>
+        <v-spacer></v-spacer>
         <v-layout row wrap>         
           <v-flex xs11 sm5>
             <v-dialog
@@ -70,7 +71,7 @@ export default {
     },
     endDate(newVal) {
       console.log("newEndDate", newVal);
-      this.$store.dispatch("newStartDate", newVal);
+      this.$store.dispatch("newEndDate", newVal);
     }
   },
   methods: {

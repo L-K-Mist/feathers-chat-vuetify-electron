@@ -48,11 +48,15 @@ const actions = {
         var _timestamp_Labels = []; // For the graph axis
         var _actualTemps_Reactor = [];
         var _targetTemps_Reactor = [];
-
+        console.log(rootState.DataAnalysis.startDate);
+        console.log(rootState.DataAnalysis.endkey);
         db.allDocs({
             include_docs: true,
-            startkey: rootState.startDate,
-            endkey: rootState.endkey
+            // startkey: rootState.startDate,
+            // endkey: rootState.endkey,
+
+            startkey: rootState.DataAnalysis.startDate,
+            endkey: rootState.DataAnalysis.endkey
         }).then(function (result) {
             console.log(result);
             result.rows.forEach(function (row) { // Actual temps history
