@@ -2,7 +2,7 @@
   <v-container >
      <date-toolbar></date-toolbar>
       <v-card class="pa-4 scroll-y" fluid light>
-        <line-chart :chart-data="datacollection" :width="1600"  :height="600"></line-chart>
+        <line-chart :chart-data="datacollection" :options="chartOptions" :width="1600"  :height="600"></line-chart>
     <button @click="fillData()">Randomize</button>
         <!-- <line-chart style="padding-right: 30px" :data="chartData" :options="chartOptions" :width="1600"  :height="600"></line-chart> -->
       </v-card>
@@ -19,6 +19,7 @@ export default {
   },
   data() {
     return {
+      // newDataReady: false, // Moved to computed
       datacollection: null,
       chartOptions: {
         devicePixelRatio: 2,
@@ -36,9 +37,11 @@ export default {
       }
     };
   },
-  // mounted() {
-  //   this.fillData();
-  // },
+  mounted() {
+    // this.$on("fillDataGo", function(go) { // Didn't work because of Async
+    //   this.fillData();
+    // });
+  },
   methods: {
     fillData() {
       this.datacollection = {
@@ -58,17 +61,7 @@ export default {
       };
     }
   },
-  computed: {
-    state() {
-      this.$store.getters.historyState;
-    }
-  }
+  computed: {}
 };
 </script>
 
-<style>
-.small {
-  max-width: 1600px;
-  margin: 150px auto;
-}
-</style>

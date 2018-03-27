@@ -42,15 +42,20 @@ const mutations = {
     },
     timestamp_Labels: (state, payload) => {
         state.timestamp_Labels = payload;
-        console.log("mutated timestamp_Labels", state.timestamp_Labels);
+        // console.log("mutated timestamp_Labels", state.timestamp_Labels);
     },
     actualTemps_Reactor: (state, payload) => {
         state.actualTemps_Reactor = payload;
-        console.log("mutated actualTemps_Reactor", state.actualTemps_Reactor);
+        // console.log("mutated actualTemps_Reactor", state.actualTemps_Reactor);
     },
     targetTemps_Reactor: (state, payload) => {
         state.targetTemps_Reactor = payload;
-        console.log("mutated targetTemps_Reactor", state.targetTemps_Reactor);
+        // console.log("mutated targetTemps_Reactor", state.targetTemps_Reactor);
+    },
+    newDataReady: (state, payload) => {
+        console.log('newData Ready mutation triggered');
+        state.newDataReady = payload;
+
     },
 };
 
@@ -64,8 +69,8 @@ const actions = {
         var _timestamp_Labels = []; // For the graph axis
         var _actualTemps_Reactor = [];
         var _targetTemps_Reactor = [];
-        console.log(rootState.DataAnalysis.startDate);
-        console.log(rootState.DataAnalysis.endkey);
+        // console.log(rootState.DataAnalysis.startDate);
+        // console.log(rootState.DataAnalysis.endkey);
         db.allDocs({
             include_docs: true,
             // startkey: rootState.startDate,
@@ -74,7 +79,7 @@ const actions = {
             startkey: rootState.DataAnalysis.startDate,
             endkey: rootState.DataAnalysis.endkey
         }).then(function (result) {
-            console.log(result);
+            // console.log(result);
             result.rows.forEach(function (row) { // Actual temps history
                 _actualTemps_Reactor.push(row.doc.heaterReactor.actualTemp)
             })
@@ -96,6 +101,7 @@ const actions = {
         commit('timestamp_Labels', _timestamp_Labels);
         commit('actualTemps_Reactor', _actualTemps_Reactor);
         commit('targetTemps_Reactor', _targetTemps_Reactor);
+        commit('newDataReady', true);
     },
     newStartDate: ({
         commit

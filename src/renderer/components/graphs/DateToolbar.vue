@@ -77,7 +77,8 @@ export default {
   methods: {
     attemptSend() {
       if (this.startDate !== null && this.endDate !== null) {
-        this.$store.dispatch("fetchData");
+        this.$store.dispatch("fetchData"); // Commented out code below still didn't work, BECAUSE fetchData is Asynchronous!! Vuex To The Rescue!
+        // this.$parent.$emit("fillDataGo", true); // tells TempsGraph.vue to execute it's fillData() method to refresh the graph
       } else {
         console.log("false START");
       }
