@@ -2,8 +2,8 @@
   <v-container >
      <date-toolbar></date-toolbar>
       <v-card class="pa-4 scroll-y" fluid light>
+    <v-btn color="indigo lighten-1"  round @click="fillData()"><v-icon>refresh</v-icon>  Refresh Screen</v-btn>
         <line-chart :chart-data="datacollection" :options="chartOptions" :width="1600"  :height="600"></line-chart>
-    <button @click="fillData()">Randomize</button>
         <!-- <line-chart style="padding-right: 30px" :data="chartData" :options="chartOptions" :width="1600"  :height="600"></line-chart> -->
       </v-card>
   </v-container>

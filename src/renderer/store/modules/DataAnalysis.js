@@ -52,11 +52,7 @@ const mutations = {
         state.targetTemps_Reactor = payload;
         // console.log("mutated targetTemps_Reactor", state.targetTemps_Reactor);
     },
-    newDataReady: (state, payload) => {
-        console.log('newData Ready mutation triggered');
-        state.newDataReady = payload;
 
-    },
 };
 
 const actions = {
@@ -101,7 +97,6 @@ const actions = {
         commit('timestamp_Labels', _timestamp_Labels);
         commit('actualTemps_Reactor', _actualTemps_Reactor);
         commit('targetTemps_Reactor', _targetTemps_Reactor);
-        commit('newDataReady', true);
     },
     newStartDate: ({
         commit
