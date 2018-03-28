@@ -18,6 +18,10 @@ db.remote.info().then(function (info) {
   console.log(info);
 })
 
+feathers.service('messages').on('created', value => {
+  store.dispatch('pushHumanMessage', value.text)
+})
+
 feathers.service('slider').on('updated', value => {
   if (value.id === 1) {
     store.commit('heaterLeftTarget', value.payload);
@@ -60,7 +64,7 @@ ipcRenderer.on('serialPortError', (event, error) => {
 })
 
 ipcRenderer.on('arduinoSays', (event, arg) => {
-  store.dispatch('pushMessage', arg)
+  store.dispatch('pushArduinoMessage', arg)
   console.log('Arduino says: ', arg)
 })
 
@@ -179,7 +183,6 @@ export const store = new Vuex.Store({
         console.log(error)
       }
     },
-    // To just console log our users for now
     async fetchMessages({
       commit
     }) {
@@ -230,7 +233,6 @@ export const store = new Vuex.Store({
         }
       })
     },
-    // TODO add messages actions
     async sendMessage({
       commit,
     }, payload) {
@@ -238,8 +240,9 @@ export const store = new Vuex.Store({
         text: payload
       });
     },
-    pushMessage({
+    pushArduinoMessage({
       commit,
+      dispatch,
       state
     }, payload) {
       console.log(payload);
@@ -248,6 +251,19 @@ export const store = new Vuex.Store({
         user: {
           name: "Arduino"
         }
+      }
+      state.messages.push(_messageObj)
+      dispatch('sendMessage', _messageObj.text)
+
+    },
+    pushHumanMessage({
+      commit,
+      state
+    }, payload) {
+
+      let _messageObj = {
+        text: payload,
+        user: state.user
       }
       state.messages.push(_messageObj)
     }

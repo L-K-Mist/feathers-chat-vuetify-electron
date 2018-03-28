@@ -171,7 +171,7 @@ const actions = {
       text: payload
     });
   },
-  async pushMessage({
+  async pushArduinoMessage({
     commit,
     payload,
     state
