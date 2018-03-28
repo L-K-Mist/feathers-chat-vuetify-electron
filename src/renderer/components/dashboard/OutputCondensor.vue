@@ -18,6 +18,19 @@
                     <v-card-text> 
                       <v-layout row>
                         <v-flex>
+                          <h5>Pre-Condensor Pipe Cooler</h5>
+                          <v-layout row>
+                          <v-icon class="mt-4 mr-3">toys</v-icon>                          
+                          <v-switch 
+                          v-model="condensorPreFanOn"   
+                           :hint="condensorPreFanState"
+                          persistent-hint                          
+                          class="mt-3 "></v-switch>
+                          <v-flex class="mt-4">
+                          </v-flex>
+                          </v-layout>
+                        </v-flex> 
+                        <v-flex>
                           <h5>Condensor One Cooling Fan</h5>
                           <v-layout row>
                           <v-icon class="mt-4 mr-3">toys</v-icon>                          
@@ -67,7 +80,8 @@ export default {
       //condensorTwoActual: 20,
       condensorTwo: 60,
       condensorOneFanOn: false,
-      condensorTwoFanOn: false
+      condensorTwoFanOn: false,
+      condensorPreFanOn: false
     };
   },
   computed: {
@@ -89,11 +103,17 @@ export default {
     condensorTwoFanOnNewValFromStore() {
       return this.$store.getters.condensorTwo.fanOn;
     },
+    condensorPreFanOnNewValFromStore() {
+      return this.$store.getters.condensorOne.preFanOn;
+    },
     condensorOneFanState() {
       return this.condensorOneFanOn ? "On" : "Off";
     },
     condensorTwoFanState() {
       return this.condensorTwoFanOn ? "On" : "Off";
+    },
+    condensorPreFanState() {
+      return this.condensorPreFanOn ? "On" : "Off";
     }
   },
   watch: {
@@ -111,11 +131,17 @@ export default {
     condensorTwoFanOn: function(newVal) {
       this.$store.dispatch("condensorTwoFanOn", newVal);
     },
+    condensorPreFanOn: function(newVal) {
+      this.$store.dispatch("condensorPreFanOn", newVal);
+    },
     condensorOneFanOnNewValFromStore: function(newVal) {
       this.condensorOneFanOn = newVal;
     },
     condensorTwoFanOnNewValFromStore: function(newVal) {
       this.condensorTwoFanOn = newVal;
+    },
+    condensorPreFanOnNewValFromStore: function(newVal) {
+      this.condensorPreFanOn = newVal;
     },
     condensorOneNewValFromStore(newVal) {
       this.condensorOne = newVal;

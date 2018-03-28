@@ -178,6 +178,9 @@ const mutations = {
   condensorTwoFanOn: (state, payload) => {
     state.condensorTwo.fanOn = payload
   },
+  condensorPreFanOn: (state, payload) => {
+    state.condensorOne.preFanOn = payload
+  },
 }
 
 const actions = {
@@ -336,6 +339,17 @@ const actions = {
     await commit('rawSwitchStates')
     dispatch('binarySwitches')
     await feathers.service('switches').update(2, {
+      payload
+    })
+  },
+  async condensorPreFanOn({
+    commit,
+    dispatch
+  }, payload) {
+    await commit('condensorPreFanOn', payload)
+    await commit('rawSwitchStates')
+    dispatch('binarySwitches')
+    await feathers.service('switches').update(2, { // Also here gotta tie up all the feathers bits for all condensor actions
       payload
     })
   },
