@@ -3,6 +3,7 @@
         <v-layout row wrap>
           <waste-inlets></waste-inlets>
           <main-reactor></main-reactor>
+          <output-condensor></output-condensor>
             <!-- <temp-slider v-model="heaterRightTarget" :value='heaterRightTarget'></temp-slider>
             <temp-slider v-model="reactorTarget" :value='reactorTarget'></temp-slider> -->
         </v-layout>
@@ -13,6 +14,7 @@
 import MainReactor from "@/components/dashboard/Reactor";
 import WasteInlets from "@/components/dashboard/WasteInlets";
 import TempsGraph from "@/components/graphs/TempsGraph";
+import OutputCondensor from "@/components/dashboard/OutputCondensor";
 // const { ipcRenderer } = require("electron");
 export default {
   data() {
@@ -32,7 +34,8 @@ export default {
   components: {
     MainReactor,
     WasteInlets,
-    TempsGraph
+    TempsGraph,
+    OutputCondensor
   }
 };
 </script>
