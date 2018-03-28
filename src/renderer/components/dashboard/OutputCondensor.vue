@@ -61,7 +61,7 @@ import debounce from "@/helpers/debounce";
 export default {
   data() {
     return {
-      fanCardWidth: "8",
+      fanCardWidth: "10",
       condensorOne: 60,
       //condensorOneActual: 20,
       //condensorTwoActual: 20,

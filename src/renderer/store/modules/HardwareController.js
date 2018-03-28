@@ -106,10 +106,10 @@ const mutations = {
     state.rawSwitchStates = [ // The hard-coded zeros are placeholders for future on/of switches <-- arduino firmware is ready for these placeholders to be executed
       state.heaterLeft.fanOn, // arduino pin 53
       state.heaterRight.fanOn, // arduino pin 51
-      state.condensorOne.preFanOn, // arduino pin 49
-      state.condensorOne.fanOn, // arduino pin 47
+      state.condensorOne.fanOn, // arduino pin 49
+      0, // arduino pin 47 // Attention: Leave out it is not attached to diy breakout board.
       state.condensorTwo.fanOn, // arduino pin 45
-      0, // arduino pin 43              // ATTENTION: Keep it like that <-- using it as spare GND
+      state.condensorOne.preFanOn, // arduino pin 43              // ATTENTION: Keep it like that <-- using it as spare GND
       0, // arduino pin 41    
       0, // arduino pin 14 
     ] // 
@@ -319,7 +319,7 @@ const actions = {
     commit,
     dispatch
   }, payload) {
-    await commit('fanLeftState', payload)
+    await commit('condensorOneFanOn', payload)
     await commit('rawSwitchStates')
     dispatch('binarySwitches')
     let response = await feathers.service('switches').update(1, {
@@ -332,7 +332,7 @@ const actions = {
     commit,
     dispatch
   }, payload) {
-    await commit('fanRightState', payload)
+    await commit('condensorTwoFanOn', payload)
     await commit('rawSwitchStates')
     dispatch('binarySwitches')
     await feathers.service('switches').update(2, {
