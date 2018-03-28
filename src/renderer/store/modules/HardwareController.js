@@ -109,8 +109,8 @@ const mutations = {
       state.condensorOne.fanOn, // arduino pin 49
       0, // arduino pin 47 // Attention: Leave out it is not attached to diy breakout board.
       state.condensorTwo.fanOn, // arduino pin 45
-      state.condensorOne.preFanOn, // arduino pin 43              // ATTENTION: Keep it like that <-- using it as spare GND
-      0, // arduino pin 41    
+      0, // arduino pin 43 // ATTENTION: Keep it like that <-- using it as spare GND 
+      state.condensorOne.preFanOn, // arduino pin 41    
       0, // arduino pin 14 
     ] // 
   },

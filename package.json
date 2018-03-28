@@ -1,7 +1,7 @@
 {
   "name": "p2d-controller",
   "version": "0.0.0",
-  "author": "",
+  "author": "Dylan van den Bosch <dylan@welink.co.za> (https://welink.co.za/)",
   "description": "An electron-vue project",
   "license": "All Rights Reserved Dylan van den Bosch",
   "main": "./dist/electron/main.js",
@@ -14,11 +14,12 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "postinstall": ""
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "build"
   },
   "build": {
     "productName": "p2d-controller",
-    "appId": "org.simulatedgreg.electron-vue",
+    "appId": "welink.co.za",
     "directories": {
       "output": "build"
     },
@@ -26,8 +27,7 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [
-        {
+      "contents": [{
           "x": 410,
           "y": 150,
           "type": "link",
@@ -43,11 +43,12 @@
     "mac": {
       "icon": "build/icons/icon.icns"
     },
-    "win": {
-      "icon": "build/icons/icon.ico"
-    },
     "linux": {
       "icon": "build/icons"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
     }
   },
   "dependencies": {
