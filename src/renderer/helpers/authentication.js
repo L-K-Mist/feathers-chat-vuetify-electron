@@ -99,7 +99,6 @@ const actions = {
     } catch (error) {
       console.log(error)
       commit('showLoginGuide', true)
-
     }
   },
   async logOut({
@@ -165,13 +164,25 @@ const actions = {
       }
     })
   },
-  // TODO add messages actions
   async sendMessage({
     commit,
   }, payload) {
     const sendMessage = await feathers.service('messages').create({
       text: payload
     });
+  },
+  async pushMessage({
+    commit,
+    payload,
+    state
+  }) {
+    _messageObj = {
+      text: payload,
+      user: {
+        name: Arduino
+      }
+    }
+    state.messages.push(_messageObj)
   }
 };
 

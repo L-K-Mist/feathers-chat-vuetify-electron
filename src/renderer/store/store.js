@@ -59,6 +59,11 @@ ipcRenderer.on('serialPortError', (event, error) => {
   console.log('Dee we have an SP problem: ', error)
 })
 
+ipcRenderer.on('arduinoSays', (event, arg) => {
+  store.dispatch('pushMessage', arg)
+  console.log('Arduino says: ', arg)
+})
+
 // Keeping Authentication here front and center. The rest in modules
 Vue.use(Vuex)
 export const store = new Vuex.Store({
@@ -232,6 +237,19 @@ export const store = new Vuex.Store({
       const sendMessage = await feathers.service('messages').create({
         text: payload
       });
+    },
+    pushMessage({
+      commit,
+      state
+    }, payload) {
+      console.log(payload);
+      let _messageObj = {
+        text: payload,
+        user: {
+          name: "Arduino"
+        }
+      }
+      state.messages.push(_messageObj)
     }
   },
   modules: {

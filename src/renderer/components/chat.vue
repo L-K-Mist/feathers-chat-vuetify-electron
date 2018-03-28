@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-      <v-card>
-        <v-layout row>             
-          <app-messages></app-messages>
-        </v-layout>
-      </v-card>
-  </v-container>
+
+          
+  <app-messages></app-messages>
+
+
 </template>
 
 <script>

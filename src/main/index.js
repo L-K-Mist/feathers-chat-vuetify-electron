@@ -48,6 +48,7 @@ function initializePort(portname) {
         let tempsFromArduino = stringToCSV[0]
         mainWindow.webContents.send("tempsArrayReady", tempsFromArduino)
       } else {
+        mainWindow.webContents.send("arduinoSays", data)
         console.log('arduino says: ', data)
       }
     }
