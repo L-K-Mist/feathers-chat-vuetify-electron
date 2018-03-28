@@ -1,6 +1,7 @@
 import db from '@/api/pouchDB'
 import feathers from '@/api/feathers-client'
 import moment from "moment";
+import boolArrayCompression from '@/helpers/boolArrayCompression';
 
 const {
   ipcRenderer
@@ -66,10 +67,25 @@ const getters = {
       state.heaterRight.targetTemp,
       state.heaterReactor.targetTemp
     ]
+  },
+  rawSwitchStates: state => { // This translates machine-wide on/off (ie. non-flasher) states to a boolean array for further crunching into a single integer between 0 and 255
+    return state.rawSwitchStates
   }
 }
 
 const mutations = {
+  rawSwitchStates(state) {
+    state.rawSwitchStates = [ // The hard-coded zeros are placeholders for future on/of switches <-- arduino firmware is ready for these placeholders to be executed
+      state.heaterLeft.fanOn, // arduino pin 53
+      state.heaterRight.fanOn, // arduino pin 51
+      0, // arduino pin 49
+      0, // arduino pin 47
+      0, // arduino pin 45
+      0, // arduino pin 43 // Keep it like that using it as spare GND
+      0, // arduino pin 41    
+      0, // arduino pin 14 
+    ] // 
+  },
   showConnectDialog(state, payload) {
     state.showConnectDialog = payload
   },
@@ -140,18 +156,24 @@ const actions = {
     })
   },
   async fanLeftState({
-    commit
+    commit,
+    dispatch
   }, payload) {
-    commit('fanLeftState', payload)
+    await commit('fanLeftState', payload)
+    await commit('rawSwitchStates')
+    dispatch('binarySwitches')
     let response = await feathers.service('switches').update(1, {
       payload
     })
     //console.log('action response ', response)
   },
   async fanRightState({
-    commit
+    commit,
+    dispatch
   }, payload) {
-    commit('fanRightState', payload)
+    await commit('fanRightState', payload)
+    await commit('rawSwitchStates')
+    dispatch('binarySwitches')
     await feathers.service('switches').update(2, {
       payload
     })
@@ -193,6 +215,14 @@ const actions = {
     let _arduinoSignal = `R33,${payload.onTime},${payload.offTime}` // this should come out as for example "R33,5000,5000" if slider was at 50%
     // console.log(_arduinoSignal); // Yes, seems to be working
     ipcRenderer.send('signalArduino', _arduinoSignal)
+  },
+  binarySwitches({ // prepares the signal for ipc to send to arduino
+    commit,
+    state
+  }) {
+    var _binInt = boolArrayCompression(state.rawSwitchStates)
+    let _arduinoSignal = `A${_binInt}` // Prefix signal with A so arduino will know it's a compressed boolean array.
+    ipcRenderer.send('signalArduino', _arduinoSignal) // If I was aiming DRY I could put this line into mutation called ipcArduino and call that mutation with different payloads. Not sure that's right though
   },
 }
 
