@@ -294,7 +294,7 @@ const actions = {
   flashrateFurnaceBlower({ // prepares the signal for ipc to send to arduino
     commit
   }, payload) {
-    let _arduinoSignal = `R33,${payload.onTime},${payload.offTime}` // this should come out as for example "R33,5000,5000" if slider was at 50%
+    let _arduinoSignal = `R35,${payload.onTime},${payload.offTime}` // this should come out as for example "R33,5000,5000" if slider was at 50%
     // console.log(_arduinoSignal); // Yes, seems to be working
     ipcRenderer.send('signalArduino', _arduinoSignal)
   },
