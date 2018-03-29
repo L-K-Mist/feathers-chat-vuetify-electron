@@ -15,19 +15,9 @@ export default new Router({
       component: require('@/components/InspireView').default
     },
     {
-      path: '/controller',
-      name: 'controller',
-      component: require('@/components/dashboard').default
-    },
-    {
       path: '/authentication',
       name: 'AppAuthentication',
       component: require('@/components/AppAuthentication').default
-    },
-    {
-      path: '/graphs',
-      name: 'Graphs',
-      component: require('@/components/Graphs').default
     },
     {
       path: '*',

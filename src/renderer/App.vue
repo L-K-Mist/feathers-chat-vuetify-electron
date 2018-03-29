@@ -55,7 +55,6 @@
 
 <script>
 import AppChat from "@/components/chat";
-import ConnectDialog from "@/components/ConnectHardware/ConnectHardwareDialog";
 import UserGuideDialogue from "@/components/UserGuideDialogue";
 
 export default {
@@ -118,7 +117,6 @@ export default {
     }
   },
   components: {
-    ConnectDialog,
     AppChat,
     UserGuideDialogue
   }

@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import feathers from '@/api/feathers-client'
 
-import HardwareController from './modules/HardwareController'
-import SerialConnection from './modules/SerialConnection'
 import userGuide from './modules/userGuide'
 import db from '@/api/pouchDB'
 
@@ -233,7 +231,6 @@ export const store = new Vuex.Store({
   },
   modules: {
     userGuide,
-    HardwareController,
     SerialConnection
   }
 })

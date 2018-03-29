@@ -2,11 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import feathers from '@/api/feathers-client'
 
-import HardwareController from './modules/HardwareController'
-import SerialConnection from './modules/SerialConnection'
 import userGuide from './modules/userGuide'
-import ExecutiveOverride from './modules/ExecutiveOverride'
-import DataAnalysis from './modules/DataAnalysis'
+
 import db from '@/api/pouchDB'
 
 // import ipcRenderer from 'electron'
@@ -271,9 +268,6 @@ export const store = new Vuex.Store({
   modules: {
     // Place to add modularized store items
     userGuide,
-    HardwareController,
-    ExecutiveOverride,
-    SerialConnection,
-    DataAnalysis
+
   }
 })
