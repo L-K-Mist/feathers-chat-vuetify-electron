@@ -26,7 +26,10 @@ Often I go back through the git history of other people's example code to get a 
 
 ### Inconsistent function definitions
 
-Very much a no-no in production apps, but here I sometimes switch between different ways to define methods. Sometimes:
+Very much a no-no in production apps, but here I sometimes switch between different ways to define methods. Just showing different options together, because in different tutorials I see different ways. 
+When I refactor the app that came out of this process, I will probably use the first style below wherever reasonable.
+
+Sometimes:
 ```
     logOut() {
       this.$store.dispatch('logOut')
