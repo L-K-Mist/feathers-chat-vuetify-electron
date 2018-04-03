@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import feathers from '@/api/feathers-client'
-
 import userGuide from './modules/userGuide'
-
 import db from '@/api/pouchDB'
 
 // import ipcRenderer from 'electron'
@@ -18,7 +16,6 @@ const {
 feathers.service('messages').on('created', value => {
   store.dispatch('pushHumanMessage', value) // Called this pushHumanMessage, because my own version also has arduino sending messages to clients.
 })
-
 
 // Keeping Authentication here front and center. The rest in modules
 Vue.use(Vuex)

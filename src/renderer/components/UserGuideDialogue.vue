@@ -26,17 +26,18 @@ export default {
     }
   },
   methods: {
+    // These methods do NOT actually register the user, but only set whether the gui should show the Sign In form or the Sign Up form
+    // They call on the Vuex userGuide module, not the Authentication aspects placed in the main store.
+
     userRegister() {
-      this.dialog = false;
       this.$store.dispatch("userRegister", true);
-      this.$store.dispatch("fetchMessages");
-      this.$router.replace({ name: "AppAuthentication" });
+      this.$router.replace({ name: "AppAuthentication" }); // Both userRegister and userLogin go to the AppAuthentication route, but the component shown at AppAuthentication depends on whether the user is signing up or signing in
+      this.dialog = false; // close this dialog
     },
     userLogin() {
-      this.dialog = false;
       this.$store.dispatch("userLogin", true);
-      this.$store.dispatch("fetchMessages");
       this.$router.replace({ name: "AppAuthentication" });
+      this.dialog = false; // close this dialog
     }
   }
 };

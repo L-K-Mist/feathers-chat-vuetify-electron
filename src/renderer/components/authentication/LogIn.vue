@@ -2,7 +2,6 @@
   <v-container>
       <v-layout row wrap>
           <v-flex align-content-center>
-
                 <h3>Log In</h3>
                 <v-form v-model="valid"
                     @submit.prevent="onLogin">
@@ -60,6 +59,7 @@ export default {
     onLogin() {
       this.$store.dispatch("signInManually", this.user);
       this.$router.replace({ name: "inspire" });
+      this.$store.dispatch("fetchMessages");
     }
   }
 };
