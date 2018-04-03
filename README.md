@@ -15,7 +15,7 @@ eg:
 - Have opted NOT to use vuex mapActions and mapGetters, so that fellow "second-language speakers" can more clearly see how vuex works with feathers.
 - As stated above: Did not use the feathers-vuex client plugin to make the connections between vuex and feathers more explicit. Will certainly use it in the future now that this process has taught me what's happening under the hood a bit better.
 - Have explicitly called `feathers.service('messages')` and such wherever used, instead of wrapping them in the more DRY `const messageService = feathers.service('messages')`
-- Lots of newbie-ish level comments.
+- Lots of newbie-ish level comments. 
 
 ### Kooky Commits
 
@@ -50,6 +50,7 @@ Maybe try out some of the other client examples, and have them all chatting to t
 Maybe even my own one too:
 - [L-K-Mist/feathers-chat-vuetify-pwa](https://github.com/L-K-Mist/feathers-chat-vuetify-pwa)
 (It works although it currently over-uses fetching all messages from the feathers server instead of updating the latest message `.on('created', pushNewMessageIntoMessagesArray())`)
+Note: Will probably totally re-do the Vuetify PWA version, by porting the render portion of this app to the repo. Yes, yes, normally you'd do it the other way around with Electron. ie Build Web-app, port the webapp to the render part of Electron. That's sort of what I did, only learnt a lot en route, so the PWA is behind this Electron version in understanding. 
 
 
 ## Imagined FAQ 
