@@ -1,8 +1,8 @@
-# p2d-controller
+# feathers-chat-vuetify-electron
 
 > Feathers Vue Vuex Vuetify Electron Example
 
-It borrows heavily from  - [feathers-chat-vuex example](https://github.com/feathers-plus/feathers-chat-vuex)although it doesn't use the [feathers-vuex](https://github.com/feathersjs/feathers-vuex) Feathers client plugin. 
+It borrows heavily from - [feathers-chat-vuex example](https://github.com/feathers-plus/feathers-chat-vuex) - although it doesn't use the - [feathers-vuex](https://github.com/feathersjs/feathers-vuex) Feathers client plugin. 
 This is because as a feathers newbie, I needed to see how feathers and vuex work together, so opted to do all the "switchboarding" between these tools myself.
 
 ## Codesmells?
@@ -54,7 +54,7 @@ Maybe even my own one too:
 
 I added PouchDB because I love it and the potential of Offline-First.
 In my case the state of the machine is saved to the local pouch db every 30 seconds, for the sake of future analysis. 
-For struggling startups "on the make" it means you can split different parts of your app over different Free-Tier servers. ie GUI state is synced to CouchDB on (Cloudant)[https://www.ibm.com/cloud/cloudant] Chat and perhaps other feathers services are hosted via (Zeit)[https://zeit.co/]. 
+For struggling startups "on the make" it means you can split different parts of your app over different Free-Tier servers. ie GUI state is synced to CouchDB on [Cloudant](https://www.ibm.com/cloud/cloudant) Chat and perhaps other feathers services are hosted via [Zeit](https://zeit.co/). 
 
 ### Why is Feathers Chat not front and center like in the other examples
 
@@ -63,17 +63,17 @@ eg. In my case I built a GUI to control temperatures with an arduino and share t
 
 The above required adding new services to the standard feathers chat server, so they were deleted for this example.
 
-If you are using this example as a springboard; why not do similar?  Clone the server example as well and incrementally plug in new services.
+If you are using this example as a springboard; why not do similar?  Clone the server example, and incrementally plug in new services. Eg. Can you get a slider to be shared accross clients in real-time ?
 
 ### Where is Gravatar like in the other feathers-chat examples?
 
-I cut it out to better fill the side-bar, and as somewhat unnecessary for my purposes and perhaps those of fellow-learners.
+I cut it out to make more space in the sidebar for messages.
 
 ### What other extras are in the code, but not actually shown yet during run dev?
 
 #### Reusable Slider Components
 In components/ReUse I've left two examples of reusable sliders. Basically they are components that you can call on in your own components by importing them; registering them; and giving them data values for the exposed props.  <-- in the script section.
-Then embed them in the template section, like below:
+Then embed them <-- in the template section, like below:
 ```
  <temp-slider name="Left Target"  
               v-model="heaterLeftTarget" 
