@@ -8,6 +8,7 @@ This is because as a feathers newbie, I needed to see how feathers and vuex work
 It is based on the [Vuetify Electron Boilerplate](https://github.com/vuetifyjs/electron) - which in turn is based on [Electron Vue's Boilerplate](https://simulatedgreg.gitbooks.io/electron-vue/content/en/). 
 Check out the other cool [Vuetify Boilerplate options](https://vuetifyjs.com/en/getting-started/quick-start#new) including PWA and Cordova!
 
+
 ## Codesmells?
 
 I have opted for readibility over DRY in many cases. (At least I think I have.)
@@ -17,13 +18,41 @@ eg:
 - Have explicitly called `feathers.service('messages')` and such wherever used, instead of wrapping them in the more DRY `const messageService = feathers.service('messages')`
 - Lots of newbie-ish level comments. 
 
+
 ### Kooky Commits
 
 Often I go back through the git history of other people's example code to get a sense of how they built the app. In this case I would advise against it: I first built the whole GUI and extras and then deleted and simplified it all for this shared example that works with the standard feathers-chat-server. Going through that history will probably confuse a learner more than enlighten.
 
+
+### Inconsistent function definitions
+
+Very much a no-no in production apps, but here I sometimes switch between different ways to define methods. Sometimes:
+```
+    logOut() {
+      this.$store.dispatch('logOut')
+    },
+
+```
+Othertimes:
+```
+    scrollToEnd: function() {
+      var container = this.$el.querySelector("#scroll-container");
+      container.scrollTop = container.scrollHeight;
+    }
+```
+Othertimes:
+``` 
+    scrollToEnd: () => {
+      var container = this.$el.querySelector("#scroll-container");
+      container.scrollTop = container.scrollHeight;
+    }
+```
+
+
 ## API Setup
 
 This project is designed to work alongside the [`feathers-chat`](https://github.com/feathersjs/feathers-chat) application.  Please make sure you have the `feathers-chat` server app running before you try to use this one.
+
 
 ## Build Setup
 
@@ -35,6 +64,7 @@ npm install
 npm run dev
 
 ```
+
 
 ## How to play with the chat aspects
 
@@ -75,6 +105,7 @@ If you are using this example as a springboard; why not do similar?  Clone the s
 ### Where is Gravatar like in the other feathers-chat examples?
 
 I cut it out to make more space in the sidebar for messages.
+
 
 ### What other extras are in the code, but not actually shown yet during run dev?
 

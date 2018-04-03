@@ -59,6 +59,7 @@ export default {
   methods: {
     onLogin() {
       this.$store.dispatch("signInManually", this.user);
+      this.$router.replace({ name: "inspire" });
     }
   }
 };

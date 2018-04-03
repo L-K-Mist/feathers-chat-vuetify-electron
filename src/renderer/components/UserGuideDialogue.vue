@@ -1,13 +1,13 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="dialog" max-width="320">
+    <v-dialog persistent v-model="dialog" max-width="320">
       <v-card>
         <v-card-title class="headline">Looks like you're not logged in yet?</v-card-title>
-        <v-card-text>Please Log In with the Username and Password sent to you by your trusty WeLink Consultant</v-card-text>
+        <v-card-text>If you've signed up before then log in, otherwise, sign up</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat="flat" @click.native="userRegister">Yes, let me register</v-btn>
-          <v-btn color="green darken-1" flat="flat" @click.native="userLogin">No, let me log in</v-btn>
+          <v-btn color="green darken-1" flat="flat" @click.native="userRegister">Let me register</v-btn>
+          <v-btn color="green darken-1" flat="flat" @click.native="userLogin">Let me log in</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -29,11 +29,13 @@ export default {
     userRegister() {
       this.dialog = false;
       this.$store.dispatch("userRegister", true);
+      this.$store.dispatch("fetchMessages");
       this.$router.replace({ name: "AppAuthentication" });
     },
     userLogin() {
       this.dialog = false;
       this.$store.dispatch("userLogin", true);
+      this.$store.dispatch("fetchMessages");
       this.$router.replace({ name: "AppAuthentication" });
     }
   }

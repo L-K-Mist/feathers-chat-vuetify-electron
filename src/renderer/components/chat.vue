@@ -6,6 +6,7 @@
             <v-flex  
                   v-for="(message, index) in messages" :key="index">              
               <v-list-tile xs2>
+                <!-- decided not to use the gravatar avatar, but you can if you want -->
                 <!-- <v-list-tile-avatar class="pa-0">
                   <img :src="message.user.avatar">
                 </v-list-tile-avatar> -->
@@ -19,6 +20,7 @@
           </v-list>
         </v-card>
       <compose-message></compose-message>
+      <v-btn  @click.native.stop="logOut">Sign Out</v-btn>
     </div>
 <!-- @mouseover="scrollToEnd"  -->
 </template>
@@ -44,12 +46,18 @@ export default {
   },
   watch: {
     messages: debounce(function(newVal) {
+      // Debounce comes in particularly handy if you want some real-time sliders
+      // trigger scrollToEnd when a new message arrives
       // console.log("value of heater left: ", newVal);
       this.scrollToEnd();
     }, 500)
   },
   methods: {
+    logOut() {
+      this.$store.dispatch("logOut");
+    },
     scrollToEnd: function() {
+      // A trick to get the chat to scroll to the newest messages ie bottom of the scrollable element. See first answer and the fiddle https://stackoverflow.com/questions/40730116/scroll-to-bottom-of-div-with-vue-js?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
       var container = this.$el.querySelector("#scroll-container");
       container.scrollTop = container.scrollHeight;
     }

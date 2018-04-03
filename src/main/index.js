@@ -24,8 +24,8 @@ function createWindow() {
    */
   mainWindow = new BrowserWindow({
     useContentSize: true,
-    width: 4000,
-    height: 2700,
+    width: 2000,
+    height: 1500,
     darkTheme: true,
     //fullscreen: true // Found that when I use this option, I lose the option to resize the screen
   })
