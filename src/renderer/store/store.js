@@ -16,54 +16,9 @@ db.remote.info().then(function (info) {
 })
 
 feathers.service('messages').on('created', value => {
-  store.dispatch('pushHumanMessage', value.text)
+  store.dispatch('pushHumanMessage', value) // Called this pushHumanMessage, because my own version also has arduino sending messages to clients.
 })
 
-feathers.service('slider').on('updated', value => {
-  if (value.id === 1) {
-    store.commit('heaterLeftTarget', value.payload);
-  } else if (value.id === 2) {
-    store.commit('heaterRightTarget', value.payload)
-  } else if (value.id === 3) {
-    store.commit('heaterReactorTarget', value.payload)
-  } else if (value.id === 4) {
-    store.commit('blowerSpeed', value.payload)
-  }
-})
-
-feathers.service('switches').on('updated', value => {
-  if (value.id === 1) {
-    store.commit('fanLeftState', value.payload);
-  } else if (value.id === 2) {
-    store.commit('fanRightState', value.payload);
-  }
-})
-
-ipcRenderer.on('got-port-confirmed', (event, arg) => {
-  console.log("connection confirmed ", arg)
-  store.dispatch('showConnectDialog', false)
-})
-
-ipcRenderer.on('handshakeComplete', (event, arg) => {
-  store.dispatch("handshakeComplete", true)
-  setInterval(function () {
-    ipcRenderer.send('give-me-temps') // Every 3 seconds ask Main process to ask arduino for temps
-  }, 3000); // 
-  store.dispatch('timedStateSnapshot') // Trigger the setInterval based action for 30 second updates of Machine State to DB for future analysis
-})
-
-ipcRenderer.on('tempsArrayReady', (event, arg) => {
-  store.dispatch('populateTemps', arg)
-})
-
-ipcRenderer.on('serialPortError', (event, error) => {
-  console.log('Dee we have an SP problem: ', error)
-})
-
-ipcRenderer.on('arduinoSays', (event, arg) => {
-  store.dispatch('pushArduinoMessage', arg)
-  console.log('Arduino says: ', arg)
-})
 
 // Keeping Authentication here front and center. The rest in modules
 Vue.use(Vuex)
@@ -257,17 +212,11 @@ export const store = new Vuex.Store({
       commit,
       state
     }, payload) {
-
-      let _messageObj = {
-        text: payload,
-        user: state.user
-      }
-      state.messages.push(_messageObj)
+      state.messages.push(payload)
     }
   },
   modules: {
     // Place to add modularized store items
     userGuide,
-
   }
 })
