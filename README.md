@@ -75,7 +75,6 @@ If you are using this example as a springboard; why not do similar?  Clone the s
 
 I cut it out to make more space in the sidebar for messages.
 
-
 ### What other extras are in the code, but not actually shown yet during run dev?
 
 #### Reusable Slider Components
