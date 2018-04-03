@@ -35,7 +35,7 @@ export default {
       type: Boolean
     },
     name: {
-      default: "MaxiMillion",
+      default: "MaxiMillionRocks",
       type: String
     },
     progressVal: {

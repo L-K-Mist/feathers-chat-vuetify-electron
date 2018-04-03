@@ -11,9 +11,9 @@ const {
   ipcRenderer
 } = require('electron')
 
-db.remote.info().then(function (info) {
-  console.log(info);
-})
+// db.remote.info().then(function (info) { // If and when you set up a cloudant account and db.    https://console.bluemix.net
+//   console.log(info);
+// })
 
 feathers.service('messages').on('created', value => {
   store.dispatch('pushHumanMessage', value) // Called this pushHumanMessage, because my own version also has arduino sending messages to clients.

@@ -45,6 +45,7 @@
  <script>
 export default {
   props: {
+    // The parent component can set these props
     value: {
       default: 110,
       type: Number

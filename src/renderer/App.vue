@@ -35,7 +35,6 @@
         </v-btn>
       </v-toolbar>
       <v-content>
-            <connect-dialog></connect-dialog>
         <v-container fluid fill-height>
           <v-slide-y-transition mode="out-in">
             <router-view></router-view>

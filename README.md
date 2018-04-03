@@ -2,9 +2,8 @@
 
 > Feathers Vue Vuex Vuetify Electron Example
 
-It borrows heavily from  - [feathers-chat-vuex example](https://github.com/feathers-plus/feathers-chat-vuex)
-
-although it doesn't use the [feathers-vuex](https://github.com/feathersjs/feathers-vuex) Feathers client plugin. This is because as a feathers newbie, I needed to see how feathers and vuex work together, so opted to do all the "switchboarding" between these tools myself.
+It borrows heavily from  - [feathers-chat-vuex example](https://github.com/feathers-plus/feathers-chat-vuex)although it doesn't use the [feathers-vuex](https://github.com/feathersjs/feathers-vuex) Feathers client plugin. 
+This is because as a feathers newbie, I needed to see how feathers and vuex work together, so opted to do all the "switchboarding" between these tools myself.
 
 ## Codesmells?
 
@@ -17,7 +16,7 @@ eg:
 
 ### Kooky Commits
 
-Often I go back through the git history of other people's example code to get a sense of how they built the app. In this case I would advise against it; as I first built the whole GUI and extras and then deleted and simplified it all for this shared example that works with the standard feathers-chat-server.
+Often I go back through the git history of other people's example code to get a sense of how they built the app. In this case I would advise against it: I first built the whole GUI and extras and then deleted and simplified it all for this shared example that works with the standard feathers-chat-server. Going through that history will probably confuse a learner more than enlighten.
 
 ## API Setup
 
@@ -65,3 +64,7 @@ eg. In my case I built a GUI to control temperatures with an arduino and share t
 The above required adding new services to the standard feathers chat server, so they were deleted for this example.
 
 If you are using this example as a springboard; why not do similar?  Clone the server example as well and incrementally plug in new services.
+
+### Where is Gravatar like in the other feathers-chat examples?
+
+I cut it out to better fill the side-bar, and as somewhat unnecessary for my purposes and perhaps those of fellow-learners.
