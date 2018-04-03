@@ -68,3 +68,20 @@ If you are using this example as a springboard; why not do similar?  Clone the s
 ### Where is Gravatar like in the other feathers-chat examples?
 
 I cut it out to better fill the side-bar, and as somewhat unnecessary for my purposes and perhaps those of fellow-learners.
+
+### What other extras are in the code, but not actually shown yet during run dev?
+
+#### Reusable Slider Components
+In components/ReUse I've left two examples of reusable sliders. Basically they are components that you can call on in your own components by importing them; registering them; and giving them data values for the exposed props.  <-- in the script section.
+Then embed them in the template section, like below:
+```
+ <temp-slider name="Left Target"  
+              v-model="heaterLeftTarget" 
+              :value='heaterLeftTarget' 
+              :progressVal="heaterLeftActual"></temp-slider>
+            <temp-slider name="Right Target"  
+              v-model="heaterRightTarget" 
+              :value='heaterRightTarget' 
+              :progressVal="heaterRightActual"></temp-slider>
+```
+
