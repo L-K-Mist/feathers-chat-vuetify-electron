@@ -189,22 +189,6 @@ export const store = new Vuex.Store({
         text: payload
       });
     },
-    pushArduinoMessage({
-      commit,
-      dispatch,
-      state
-    }, payload) {
-      console.log(payload);
-      let _messageObj = {
-        text: payload,
-        user: {
-          name: "Arduino"
-        }
-      }
-      state.messages.push(_messageObj)
-      dispatch('sendMessage', _messageObj.text)
-
-    },
     pushHumanMessage({
       commit,
       state

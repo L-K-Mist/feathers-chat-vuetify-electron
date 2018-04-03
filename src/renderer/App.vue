@@ -12,7 +12,12 @@
         <app-chat></app-chat>
       </v-navigation-drawer>
       <v-toolbar fixed app :clipped-left="clipped">
-        <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-btn
+          icon
+          @click.native.stop="drawer = !drawer"
+        >
+          <v-icon>message</v-icon>
+        </v-btn>
         <v-btn
           icon
           @click.native.stop="clipped = !clipped"
@@ -59,7 +64,7 @@
       </v-navigation-drawer>
       <v-footer :fixed="fixed" app>
         <v-spacer></v-spacer>
-        <span>&copy; 2017</span>
+        <div class="mr-3">&copy; 2018   </div>   
       </v-footer>
     </v-app>
   </div>
