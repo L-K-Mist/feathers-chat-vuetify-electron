@@ -11,7 +11,7 @@ Check out the other cool [Vuetify Boilerplate options](https://vuetifyjs.com/en/
 
 ## API Setup
 
-This project is designed to work alongside the [`feathers-chat`](https://github.com/feathersjs/feathers-chat) application.  Please make sure you have the `feathers-chat` server app running before you try to use this one.
+This project is designed to work alongside the [`feathers-chat-server`](https://github.com/feathersjs/feathers-chat) application.  Please make sure you have the `feathers-chat-server`  app running before you try to use this one.
 
 
 ## Build Setup
@@ -48,7 +48,7 @@ Note: Will probably totally re-do the Vuetify PWA version, by porting the render
 I have opted for readibility over DRY in many cases. (At least I think I have.)
 eg: 
 - Have opted NOT to use vuex mapActions and mapGetters, so that fellow "second-language speakers" can more clearly see how vuex works with feathers.
-- As stated above: Did not use the feathers-vuex client plugin to make the connections between vuex and feathers more explicit. Will certainly use it in the future now that this process has taught me what's happening under the hood a bit better.
+- Did not use the feathers-vuex client plugin to make the connections between vuex and feathers more explicit. Will certainly use it in the future now that this process has taught me what's happening under the hood a bit better.
 - Have explicitly called `feathers.service('messages')` and such wherever used, instead of wrapping them in the more DRY `const messageService = feathers.service('messages')`
 - Lots of newbie-ish level comments. 
 
@@ -91,7 +91,7 @@ Othertimes:
 ### What's PouchDB doing in there?
 
 I added PouchDB because I love it and the potential of Offline-First.
-In my case the state of the machine is saved to the local pouch db every 30 seconds, for the sake of future analysis. 
+eg. In the app I built from this repo: The machine state (temps and targets etc) was saved to the local pouch db every 30 seconds, for the sake of future analysis. 
 For struggling startups "on the make" it means you can split different parts of your app over different Free-Tier servers. ie GUI state is synced to CouchDB on [Cloudant](https://www.ibm.com/cloud/cloudant) Chat and perhaps your feathers services are hosted via [Zeit](https://zeit.co/). 
 
 
@@ -102,7 +102,7 @@ eg. In my case I built a GUI to control temperatures with an arduino and share t
 
 The above required adding new services to the standard feathers chat server, so they were deleted for this example.
 
-If you are using this example as a springboard; why not do similar?  Clone the server example, and incrementally plug in new services. Eg. Can you get a slider to be shared accross clients in real-time ? (you'll need debounce for that see: `src/helpers/debounce.js`)
+If you are using this example as a springboard; why not do similar?  Clone the [`feathers-chat-server`](https://github.com/feathersjs/feathers-chat) example, and incrementally plug in new services. Eg. Can you get a slider to be shared accross clients in real-time ? (you'll need debounce for that see: `src/helpers/debounce.js`)
 
 
 ### Where is Gravatar like in the other feathers-chat examples?
