@@ -11,7 +11,7 @@
                   <img :src="message.user.avatar">
                 </v-list-tile-avatar> -->
                 <v-layout column>
-                  <v-subheader xs4 class="pa-0 ma-0">{{ message.user.name }}:</v-subheader>
+                  <v-subheader xs4 class="pa-0 ma-0">{{ message.user.email }}:</v-subheader>
                   <v-list-tile-content class="ml-2 caption" v-html="message.text">                  
                   </v-list-tile-content>
                 </v-layout>
@@ -20,7 +20,7 @@
           </v-list>
         </v-card>
       <compose-message></compose-message>
-      <v-btn  @click.native.stop="logOut">Sign Out</v-btn>
+      <v-btn @click.native.stop="logOut">Sign Out</v-btn>
     </div>
 <!-- @mouseover="scrollToEnd"  -->
 </template>
@@ -48,7 +48,6 @@ export default {
     messages: debounce(function(newVal) {
       // Debounce comes in particularly handy if you want some real-time sliders
       // trigger scrollToEnd when a new message arrives
-      // console.log("value of heater left: ", newVal);
       this.scrollToEnd();
     }, 500)
   },

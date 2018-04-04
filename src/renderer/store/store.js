@@ -75,7 +75,7 @@ export const store = new Vuex.Store({
           email: payload.email,
           password: payload.password
         })
-        const verifyNewUser = await feathers.passport.verifyJWT(authNewUser.accessToken) // The Access Token is used to verify the user.
+        const verifyNewUser = await feathers.passport.verifyJWT(authNewUser.accessToken) // The Access Token created above is used to verify the user.
         //const fetchUserId = await feathers.service('users').get(verifyNewUser.id)
         console.log('New User: ', newUser)
         commit('setUser', newUser); // This client will have fetchUser as it's active user.
@@ -83,7 +83,7 @@ export const store = new Vuex.Store({
         console.log(error)
       }
     },
-    async signInManually({
+    async signInManually({ // For the case where user has already signed up, but the signInAuto hasn't worked
       commit,
       dispatch
     }, payload) {
@@ -104,7 +104,7 @@ export const store = new Vuex.Store({
         console.log(error)
       }
     },
-    async signInAuto({
+    async signInAuto({ // This is triggered when App.vue is mounted. Attempts to authenticate using the locally stored JWT (Javascript Web Token)
       commit,
       actions
     }) {
@@ -169,7 +169,7 @@ export const store = new Vuex.Store({
       console.log('setUsers', users.data)
       // TODO: play with this sorting so that able to clean users of all but 1st created user: ie. Yourself
     },
-    cleanUsers({
+    cleanUsers({ // If you want to start fresh with no persisted users, then call this action via this.$store.dispatch('cleanUsers')
       commit
     }) {
       feathers.service('users').remove(null, { // DANGEROUS ACTION: Deletes users from db
@@ -178,9 +178,6 @@ export const store = new Vuex.Store({
           $sort: {
             createdAt: -1
           },
-          name: { // want to delete all users except myself
-            $nin: ['dylan']
-          }
         }
       })
     },
