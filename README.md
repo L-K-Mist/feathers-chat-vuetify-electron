@@ -9,6 +9,40 @@ It is based on the [Vuetify Electron Boilerplate](https://github.com/vuetifyjs/e
 Check out the other cool [Vuetify Boilerplate options](https://vuetifyjs.com/en/getting-started/quick-start#new) including PWA and Cordova!
 
 
+## API Setup
+
+This project is designed to work alongside the [`feathers-chat`](https://github.com/feathersjs/feathers-chat) application.  Please make sure you have the `feathers-chat` server app running before you try to use this one.
+
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+```
+
+
+## How to play with the chat aspects
+
+Once you have the feathers server started, and the electron app up and running; go to [localhost:3030/vanilla](http://localhost:3030/vanilla/). Then sign up as a new user and chat with yo' self. ;P
+
+Maybe try out some of the other client examples, and have them all chatting to the same server!
+
+- [feathersjs-ecosystem/feathers-chat-react](https://github.com/feathersjs-ecosystem/feathers-chat-react)
+- [feathersjs-ecosystem/feathers-react-native-chat](https://github.com/feathersjs-ecosystem/feathers-react-native-chat)
+- [feathersjs-ecosystem/feathers-chat-angular](https://github.com/feathersjs-ecosystem/feathers-chat-angular)
+- [feathers-plus/feathers-chat-vuex](https://github.com/feathers-plus/feathers-chat-vuex)
+
+Maybe even my own one too:
+- [L-K-Mist/feathers-chat-vuetify-pwa](https://github.com/L-K-Mist/feathers-chat-vuetify-pwa)
+(It works although it currently over-uses fetching all messages from the feathers server instead of updating the latest message `.on('created', pushNewMessageIntoMessagesArray())`)
+Note: Will probably totally re-do the Vuetify PWA version, by porting the render portion of this app to the repo. Yes, yes, normally you'd do it the other way around with Electron. ie Build Web-app, port the webapp to the render part of Electron. That's sort of what I did, only learnt a lot en route, so the PWA is behind this Electron version in understanding. 
+
+
 ## Codesmells?
 
 I have opted for readibility over DRY in many cases. (At least I think I have.)
@@ -52,40 +86,6 @@ Othertimes:
 ```
 
 
-## API Setup
-
-This project is designed to work alongside the [`feathers-chat`](https://github.com/feathersjs/feathers-chat) application.  Please make sure you have the `feathers-chat` server app running before you try to use this one.
-
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-```
-
-
-## How to play with the chat aspects
-
-Once you have the feathers server started, and the electron app up and running; go to [localhost:3030/vanilla](http://localhost:3030/vanilla/). Then sign up as a new user and chat with yo' self. ;P
-
-Maybe try out some of the other client examples, and have them all chatting to the same server!
-
-- [feathersjs-ecosystem/feathers-chat-react](https://github.com/feathersjs-ecosystem/feathers-chat-react)
-- [feathersjs-ecosystem/feathers-react-native-chat](https://github.com/feathersjs-ecosystem/feathers-react-native-chat)
-- [feathersjs-ecosystem/feathers-chat-angular](https://github.com/feathersjs-ecosystem/feathers-chat-angular)
-- [feathers-plus/feathers-chat-vuex](https://github.com/feathers-plus/feathers-chat-vuex)
-
-Maybe even my own one too:
-- [L-K-Mist/feathers-chat-vuetify-pwa](https://github.com/L-K-Mist/feathers-chat-vuetify-pwa)
-(It works although it currently over-uses fetching all messages from the feathers server instead of updating the latest message `.on('created', pushNewMessageIntoMessagesArray())`)
-Note: Will probably totally re-do the Vuetify PWA version, by porting the render portion of this app to the repo. Yes, yes, normally you'd do it the other way around with Electron. ie Build Web-app, port the webapp to the render part of Electron. That's sort of what I did, only learnt a lot en route, so the PWA is behind this Electron version in understanding. 
-
-
 ## Imagined FAQ 
 
 ### What's PouchDB doing in there?
@@ -95,7 +95,7 @@ In my case the state of the machine is saved to the local pouch db every 30 seco
 For struggling startups "on the make" it means you can split different parts of your app over different Free-Tier servers. ie GUI state is synced to CouchDB on [Cloudant](https://www.ibm.com/cloud/cloudant) Chat and perhaps your feathers services are hosted via [Zeit](https://zeit.co/). 
 
 
-### Why is Feathers Chat not front and center like in the other examples
+### Why is Feathers Chat not front-and-center like in the other examples
 
 To encourage fellow learners to play with feathers from this app, but keep the in-app chat as a side-feature.
 eg. In my case I built a GUI to control temperatures with an arduino and share the results on-line in the browser version, but chose not to get rid of the chat feature, but rather hacked it so that serial messages from the arduino joined in on the human chat.
@@ -113,7 +113,7 @@ I cut it out to make more space in the sidebar for messages.
 ### What other extras are in the code, but not actually shown yet during run dev?
 
 #### Reusable Slider Components
-In components/ReUse I've left two examples of reusable sliders. Basically they are components that you can call on in your own components by importing them; registering them; and giving them data values for the exposed props.  <-- in the script section.
+In `components/ReUse` I've left two examples of reusable sliders. Basically they are components that you can call on in your own components by importing them; registering them; and giving them data values for the exposed props.  <-- in the script section.
 Then embed them <-- in the template section, like below:
 
 ```
@@ -124,3 +124,4 @@ Then embed them <-- in the template section, like below:
 
 ```
 
+# So come on! Clone it, create a branch and BREAK IT - Play with vue, Play with feathers, Play with Vuetify...
