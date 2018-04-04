@@ -28,7 +28,7 @@ npm run dev
 
 ## How to play with the chat aspects
 
-Once you have the feathers server started, and the electron app up and running; go to [localhost:3030/vanilla](http://localhost:3030/vanilla/). Then sign up as a new user and chat with yo' self. ;P
+Once you have the feathers server started, and the electron app up and running; go to [localhost:3030/vanilla](http://localhost:3030/vanilla/). Then sign up as a new user and chat with yo' self. :stuck_out_tongue_winking_eye:
 
 Maybe try out some of the other client examples, and have them all chatting to the same server!
 
