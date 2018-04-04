@@ -18,6 +18,7 @@ export default {
   computed: {
     dialog: {
       get() {
+        // These get and set methods syncronise the state of the login guide. Therefore any component can switch on the login guide by dispatching the showLoginGuide action
         return this.$store.getters.showLoginGuide;
       },
       set(dialog) {
