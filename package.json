@@ -1,5 +1,5 @@
 {
-  "name": "p2d-controller",
+  "name": "feathers-chat-desktop",
   "version": "0.0.0",
   "author": "Dylan van den Bosch <dylan@welink.co.za> (https://welink.co.za/)",
   "description": "An electron-vue project",
@@ -18,7 +18,7 @@
     "dist": "build"
   },
   "build": {
-    "productName": "p2d-controller",
+    "productName": "feathers-chat-desktop",
     "appId": "welink.co.za",
     "directories": {
       "output": "build"
@@ -55,17 +55,12 @@
     "@feathersjs/authentication-client": "^1.0.2",
     "@feathersjs/client": "^3.4.2",
     "@feathersjs/socketio-client": "^1.1.0",
-    "chart.js": "^2.7.2",
-    "comma-separated-values": "^3.6.4",
-    "moment": "^2.21.0",
     "pouch-vue": "^0.1.35",
     "pouchdb-browser": "^6.4.3",
     "pouchdb-find": "^6.4.3",
     "pouchdb-live-find": "^0.4.0",
-    "serialport-builds-electron": "^4.0.7",
     "socket.io-client": "^2.0.4",
     "vue": "^2.4.2",
-    "vue-chartjs": "^3.3.1",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuetify": "1.0.0",

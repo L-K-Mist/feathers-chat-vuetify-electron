@@ -21,7 +21,6 @@
                       Log In
                     </v-btn>
                 </v-form>
-
           </v-flex>
       </v-layout>
   </v-container>

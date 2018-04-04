@@ -69,23 +69,23 @@ export const store = new Vuex.Store({
       commit
     }, payload) {
       try {
-        const newUser = await feathers.service('users').create(payload)
-        const authNewUser = await feathers.authenticate({
+        const newUser = await feathers.service('users').create(payload) // Tell feathers to create a new user.
+        const authNewUser = await feathers.authenticate({ // Authenticate this user towards logging them in. This results in an Access Token
           strategy: 'local',
           email: payload.email,
           password: payload.password
         })
-        const verifyNewUser = await feathers.passport.verifyJWT(authNewUser.accessToken)
+        const verifyNewUser = await feathers.passport.verifyJWT(authNewUser.accessToken) // The Access Token is used to verify the user.
         //const fetchUserId = await feathers.service('users').get(verifyNewUser.id)
         console.log('New User: ', newUser)
-        commit('setUser', newUser);
-
+        commit('setUser', newUser); // This client will have fetchUser as it's active user.
       } catch (error) {
         console.log(error)
       }
     },
     async signInManually({
-      commit
+      commit,
+      dispatch
     }, payload) {
       try {
         const authExistingUser = await feathers.authenticate({
@@ -93,12 +93,14 @@ export const store = new Vuex.Store({
           email: payload.email,
           password: payload.password
         })
-        const verifyExistingUser = await feathers.passport.verifyJWT(authExistingUser.accessToken)
-        const fetchUser = await feathers.service('users').get(verifyExistingUser.userId)
+        const verifyExistingUser = await feathers.passport.verifyJWT(authExistingUser.accessToken) // Feathers verifyJWT then uses the access token created for this new user to log them in.
+        const fetchUser = await feathers.service('users').get(verifyExistingUser.userId) // We then fetch this user to make sure all is well. This could also be used to push a new user onto a list of users.
         console.log('verifyExistingUser: ', fetchUser)
-        commit('setUser', fetchUser);
+        commit('setUser', fetchUser); // This client will have fetchUser as it's active user.
         commit('setIsAuthenticated', true)
       } catch (error) {
+        commit('setIsAuthenticated', false) // The sign in didn't work, so the user is NOT authenticated
+        dispatch('showLoginGuide', true) // Let the user decide again whether they want to Sign Up or Sign in
         console.log(error)
       }
     },

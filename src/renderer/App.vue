@@ -72,7 +72,6 @@
 
 <script>
 import WelcomeView from "@/components/WelcomeView";
-
 import AppChat from "@/components/chat";
 import UserGuideDialogue from "@/components/UserGuideDialogue";
 
@@ -83,6 +82,7 @@ export default {
   //name: "p2d-controller",
   data: () => ({
     loginDialogue: {
+      // should actually move this to store so that where
       show: false
     },
 
@@ -111,10 +111,8 @@ export default {
     user(value) {
       if (value !== null && value !== undefined) {
         // Make sure there's an authenticated user
-        this.showWelcome = true;
         this.$store.dispatch("fetchUsers");
         this.$store.dispatch("fetchMessages"); // Now that we know there's an authenticated user, we can request messages from the database for our store. - BECAUSE - if we trigger a fetch before there's a logged in user, feathers throws an error.
-        //this.$router.replace({ name: "AppChat" });
       } else {
         this.$store.dispatch("showLoginGuide", true);
       }
